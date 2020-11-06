@@ -114,7 +114,7 @@ h1 {
   margin-bottom: 15px;
   /* padding: 0 20px; */
   background-color: white;
-  background-color: rgba(255,255,255,0.85);
+  background-color: rgba(255, 255, 255, 0.85);
   /* border-radius: 5px; */
 }
 
@@ -142,4 +142,31 @@ button {
 .game-over {
   flex-basis: 400px;
   align-self: center;
+}
+
+footer {
+  background-color: lightblue;
+  background-color: rgba(167, 207, 226, 0.85);
+  border-radius: 15px;
+  font-size: 12px;
+  margin: 50px auto;
+  padding: 7px;
+  text-align: center;
+  text-shadow: 1px 1px 1px darkgrey;
+  max-width: 750px;
+}
+
+footer p {
+  padding-top: 5px;
+}
+
+a {
+  color: #3399ff;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: #b45922;
 }
