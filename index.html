@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Vollkorn:wght@900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <title>Tetris</title>
+  </head>
+  <body>
+    <audio autoplay loop>
+      <source
+        src="https://drive.google.com/uc?export=download&id=1Ga7tcGOEXMuoLteoqotexG3_wdhIJvTA"
+      />
+    </audio>
+
+    <header>
+      <h1>TET&#1071;IS</h1>
+      <img
+        id="header-img"
+        src="https://thecakeisaliegaming.files.wordpress.com/2020/05/tetris-buildings-cropped.png"
+        alt=""
+      />
+    </header>
+
+    <div class="container">
+      <!-- to wrap grid & mini-grid -->
+      <div class="grid-border">
+        <div class="grid">
+          <!-- tetris grid 10x18 = 180 divs! Plus 10 .taken divs -->
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <!-- invisible bottom row; sits outside the 10x18 grid -->
+          <div class="taken hidden"></div>
+          <div class="taken hidden"></div>
+          <div class="taken hidden"></div>
+          <div class="taken hidden"></div>
+          <div class="taken hidden"></div>
+          <div class="taken hidden"></div>
+          <div class="taken hidden"></div>
+          <div class="taken hidden"></div>
+          <div class="taken hidden"></div>
+          <div class="taken hidden"></div>
+        </div>
+      </div>
+
+      <div class="sidebox">
+        <div class="info-display">
+          <div class="info">
+            <p class="text-center">Hi Score</p>
+            <p id="hiscore" class="text-right">0</p>
+            <!-- hi score -->
+          </div>
+        </div>
+
+        <!-- 4x4 mini-grid for displaying the next tertromino -->
+        <div class="mini-container">
+          <div class="mini-grid">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+
+        <div class="info-display">
+          <div class="info">
+            <p class="text-center">Score</p>
+            <p id="score" class="text-right">0</p>
+            <!-- tetris score -->
+          </div>
+
+          <div class="info">
+            <p class="text-center">Level</p>
+            <p id="level" class="text-right">0</p>
+            <!-- tetris level -->
+          </div>
+
+          <div class="info">
+            <p class="text-center">Lines</p>
+            <p id="lines" class="text-right">0</p>
+            <!-- cleared lines -->
+          </div>
+
+          <div class="button">
+            <button id="start-button">Start/Pause</button>
+          </div>
+
+          <div class="info instructions">
+            <p class="text-center">
+              Control the tetrominos using the arrow keys on your keyboard
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js" charset="utf-8"></script>
+  </body>
+</html>
