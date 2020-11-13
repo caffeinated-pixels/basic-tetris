@@ -9,6 +9,8 @@ My own additions include:
 - hi-score display
 - cleared lines display
 - game restart function
+- can now pause game without reset score
+- additional tertrominos
 - increasing speed levels based on the timings of the classic Nintendo Gameboy Tetris
 - a more complex scoring system also based on the Gameboy version of Tetris
 - some awesome chiptune music (which may get annoying after a while!)
