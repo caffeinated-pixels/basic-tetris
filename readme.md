@@ -19,4 +19,4 @@ By the way, the music isn't mine, it was composed by the brilliant Jonathon Dunn
 
 I do intend to return my Tetris game in the future as there is an occassional and annoying display issue that I need to debug and fix (where some of the cells don't clear until an active tertromino passes through). I also want to make the UI responsive and get the controls working on mobile displays. But that's all for another day!
 
-You can [see my tetris game in action](https://caffeinated-tetris.netlify.app/) here.
+You can [see my tetris game in action](https://caffeinated-tetris.netlify.app/) here
