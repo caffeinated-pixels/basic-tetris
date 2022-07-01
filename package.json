@@ -8,6 +8,11 @@
     "start": "parcel",
     "build": "parcel build"
   },
+  "targets": {
+    "default": {
+      "distDir": "./build"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/caffeinated-pixels/basic-tetris.git"
