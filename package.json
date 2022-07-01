@@ -1,0 +1,35 @@
+{
+  "name": "tetris",
+  "version": "1.0.0",
+  "description": "",
+  "source": "src/index.html",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "targets": {
+    "default": {
+      "distDir": "./build"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caffeinated-pixels/basic-tetris.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caffeinated-pixels/basic-tetris/issues"
+  },
+  "homepage": "https://github.com/caffeinated-pixels/basic-tetris#readme",
+  "dependencies": {
+    "eslint-config-standard": "^17.0.0"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.2",
+    "eslint": "^8.18.0",
+    "parcel": "^2.6.2"
+  }
+}
