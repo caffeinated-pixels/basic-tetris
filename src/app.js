@@ -1,4 +1,5 @@
-import { WIDTH, GAME_TIMINGS, COLORS } from './constants'
+import { WIDTH, GAME_TIMINGS, COLORS } from './constants/general'
+import { TETROMINOS } from './constants/tetrominos'
 
 const grid = document.querySelector('.grid') // selects specified element
 
@@ -26,75 +27,13 @@ let isGamePaused = true // game starts off paused
 let currentPosition = 4 // staring position of tetromino
 let currentRotation = 0 // starting rotation of tetromino
 
-/* THE TETROMINOS; each subarray is one of its 4 rotations
-the values represent grid positions on the 10x18 grid; WIDTH = 10
-so [1, WIDTH + 1, WIDTH * 2 + 1, 2] = grid positions 1, 11, 21, 2 */
-const jTetromino = [
-  [1, WIDTH + 1, WIDTH * 2 + 1, 2],
-  [WIDTH, WIDTH + 1, WIDTH + 2, WIDTH * 2 + 2],
-  [1, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 2],
-  [WIDTH, WIDTH * 2, WIDTH * 2 + 1, WIDTH * 2 + 2],
-]
-
-const lTetromino = [
-  [0, 1, WIDTH + 1, WIDTH * 2 + 1],
-  [WIDTH, WIDTH + 1, WIDTH + 2, WIDTH * 2],
-  [1, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 2 + 2],
-  [WIDTH + 2, WIDTH * 2, WIDTH * 2 + 1, WIDTH * 2 + 2],
-]
-
-const zTetromino = [
-  [0, WIDTH, WIDTH + 1, WIDTH * 2 + 1],
-  [WIDTH + 1, WIDTH + 2, WIDTH * 2, WIDTH * 2 + 1],
-  [0, WIDTH, WIDTH + 1, WIDTH * 2 + 1],
-  [WIDTH + 1, WIDTH + 2, WIDTH * 2, WIDTH * 2 + 1],
-]
-
-const sTetromino = [
-  [2, WIDTH + 1, WIDTH + 2, WIDTH * 2 + 1],
-  [WIDTH, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 2 + 2],
-  [2, WIDTH + 1, WIDTH + 2, WIDTH * 2 + 1],
-  [WIDTH, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 2 + 2],
-]
-
-const tTetromino = [
-  [1, WIDTH, WIDTH + 1, WIDTH + 2],
-  [1, WIDTH + 1, WIDTH + 2, WIDTH * 2 + 1],
-  [WIDTH, WIDTH + 1, WIDTH + 2, WIDTH * 2 + 1],
-  [1, WIDTH, WIDTH + 1, WIDTH * 2 + 1],
-]
-
-const oTetromino = [
-  [0, 1, WIDTH, WIDTH + 1],
-  [0, 1, WIDTH, WIDTH + 1],
-  [0, 1, WIDTH, WIDTH + 1],
-  [0, 1, WIDTH, WIDTH + 1],
-]
-
-const iTetromino = [
-  [1, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 3 + 1],
-  [WIDTH, WIDTH + 1, WIDTH + 2, WIDTH + 3],
-  [1, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 3 + 1],
-  [WIDTH, WIDTH + 1, WIDTH + 2, WIDTH + 3],
-]
-
-const theTetrominoes = [
-  jTetromino,
-  lTetromino,
-  zTetromino,
-  sTetromino,
-  tTetromino,
-  oTetromino,
-  iTetromino,
-] // creates a nested array of all the tetrominos/rotations
-
 // RNG FUNCTION FOR CHOOSING A TETROMINO
-const rng = () => Math.floor(Math.random() * theTetrominoes.length)
+const rng = () => Math.floor(Math.random() * TETROMINOS.length)
 let nextRandom = rng() // selects nextup tetromino
 // const rng = () => 4; // for debugging!
 // let nextRandom = 4; // for debugging!
 let random = rng() // selects current tetromino
-let current = theTetrominoes[random][currentRotation] // selects 1st rotation of the tetromino
+let current = TETROMINOS[random][currentRotation] // selects 1st rotation of the tetromino
 
 /* for checking whether tertromino is at left/right edge of grid
 modulus calc will evaluate 0 for left edge and 9 for right edge */
@@ -173,7 +112,7 @@ function freeze() {
     // we then start a new tetromino falling from the top
     random = nextRandom
     nextRandom = rng() // selects new tetromino
-    current = theTetrominoes[random][currentRotation]
+    current = TETROMINOS[random][currentRotation]
     currentPosition = 4 // resets to starting position
     draw() // draw new tetromino
     displayShape() // to display next tetromino in mini-grid
@@ -249,7 +188,7 @@ function rotate() {
     // resets rotation when gets to array end
     currentRotation = 0
   }
-  current = theTetrominoes[random][currentRotation] // set to new rotation
+  current = TETROMINOS[random][currentRotation] // set to new rotation
   checkRotatedPosition() // checks if tetromino has rotated through the side of grid
   draw() // redraws tetromino
 }
