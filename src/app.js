@@ -1,3 +1,5 @@
+import { WIDTH, GAME_TIMINGS, COLORS } from './constants'
+
 const grid = document.querySelector('.grid') // selects specified element
 
 let squares = Array.from(document.querySelectorAll('.grid div'))
@@ -10,7 +12,6 @@ const linesDisplay = document.querySelector('#lines')
 const levelDisplay = document.querySelector('#level')
 const startBtn = document.querySelector('#start-button')
 
-const width = 10 // for plotting out shapes on the grid (1 row = 10 cells)
 let timerId // leave undefined until game starts
 let squaresRemoved // for storing cleared lines/rows
 
@@ -22,77 +23,59 @@ let linesLevel = 0 // for incrementing new levels
 let isGameOver = false // change to true when game over, man!
 let isGamePaused = true // game starts off paused
 
-// Timings (ms) based on Gameboy version
-const gameTimings = [
-  887.33, 820.36, 753.39, 686.42, 619.45, 552.49, 468.78, 368.32, 284.61,
-  184.16, 167.42, 150.68, 133.94, 117.19, 100.45, 100.45, 83.71, 83.71, 66.97,
-  66.97, 50.23,
-]
-
-// colors same order as in theTetrominos array
-const colors = [
-  '#01e6ff',
-  '#ff0000',
-  '#ff00ff',
-  '#ffa508',
-  '#63ff63',
-  '#ffff00',
-  '#ff7b31',
-]
-
 let currentPosition = 4 // staring position of tetromino
 let currentRotation = 0 // starting rotation of tetromino
 
 /* THE TETROMINOS; each subarray is one of its 4 rotations
-the values represent grid positions on the 10x18 grid; width = 10
-so [1, width + 1, width * 2 + 1, 2] = grid positions 1, 11, 21, 2 */
+the values represent grid positions on the 10x18 grid; WIDTH = 10
+so [1, WIDTH + 1, WIDTH * 2 + 1, 2] = grid positions 1, 11, 21, 2 */
 const jTetromino = [
-  [1, width + 1, width * 2 + 1, 2],
-  [width, width + 1, width + 2, width * 2 + 2],
-  [1, width + 1, width * 2 + 1, width * 2],
-  [width, width * 2, width * 2 + 1, width * 2 + 2],
+  [1, WIDTH + 1, WIDTH * 2 + 1, 2],
+  [WIDTH, WIDTH + 1, WIDTH + 2, WIDTH * 2 + 2],
+  [1, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 2],
+  [WIDTH, WIDTH * 2, WIDTH * 2 + 1, WIDTH * 2 + 2],
 ]
 
 const lTetromino = [
-  [0, 1, width + 1, width * 2 + 1],
-  [width, width + 1, width + 2, width * 2],
-  [1, width + 1, width * 2 + 1, width * 2 + 2],
-  [width + 2, width * 2, width * 2 + 1, width * 2 + 2],
+  [0, 1, WIDTH + 1, WIDTH * 2 + 1],
+  [WIDTH, WIDTH + 1, WIDTH + 2, WIDTH * 2],
+  [1, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 2 + 2],
+  [WIDTH + 2, WIDTH * 2, WIDTH * 2 + 1, WIDTH * 2 + 2],
 ]
 
 const zTetromino = [
-  [0, width, width + 1, width * 2 + 1],
-  [width + 1, width + 2, width * 2, width * 2 + 1],
-  [0, width, width + 1, width * 2 + 1],
-  [width + 1, width + 2, width * 2, width * 2 + 1],
+  [0, WIDTH, WIDTH + 1, WIDTH * 2 + 1],
+  [WIDTH + 1, WIDTH + 2, WIDTH * 2, WIDTH * 2 + 1],
+  [0, WIDTH, WIDTH + 1, WIDTH * 2 + 1],
+  [WIDTH + 1, WIDTH + 2, WIDTH * 2, WIDTH * 2 + 1],
 ]
 
 const sTetromino = [
-  [2, width + 1, width + 2, width * 2 + 1],
-  [width, width + 1, width * 2 + 1, width * 2 + 2],
-  [2, width + 1, width + 2, width * 2 + 1],
-  [width, width + 1, width * 2 + 1, width * 2 + 2],
+  [2, WIDTH + 1, WIDTH + 2, WIDTH * 2 + 1],
+  [WIDTH, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 2 + 2],
+  [2, WIDTH + 1, WIDTH + 2, WIDTH * 2 + 1],
+  [WIDTH, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 2 + 2],
 ]
 
 const tTetromino = [
-  [1, width, width + 1, width + 2],
-  [1, width + 1, width + 2, width * 2 + 1],
-  [width, width + 1, width + 2, width * 2 + 1],
-  [1, width, width + 1, width * 2 + 1],
+  [1, WIDTH, WIDTH + 1, WIDTH + 2],
+  [1, WIDTH + 1, WIDTH + 2, WIDTH * 2 + 1],
+  [WIDTH, WIDTH + 1, WIDTH + 2, WIDTH * 2 + 1],
+  [1, WIDTH, WIDTH + 1, WIDTH * 2 + 1],
 ]
 
 const oTetromino = [
-  [0, 1, width, width + 1],
-  [0, 1, width, width + 1],
-  [0, 1, width, width + 1],
-  [0, 1, width, width + 1],
+  [0, 1, WIDTH, WIDTH + 1],
+  [0, 1, WIDTH, WIDTH + 1],
+  [0, 1, WIDTH, WIDTH + 1],
+  [0, 1, WIDTH, WIDTH + 1],
 ]
 
 const iTetromino = [
-  [1, width + 1, width * 2 + 1, width * 3 + 1],
-  [width, width + 1, width + 2, width + 3],
-  [1, width + 1, width * 2 + 1, width * 3 + 1],
-  [width, width + 1, width + 2, width + 3],
+  [1, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 3 + 1],
+  [WIDTH, WIDTH + 1, WIDTH + 2, WIDTH + 3],
+  [1, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 3 + 1],
+  [WIDTH, WIDTH + 1, WIDTH + 2, WIDTH + 3],
 ]
 
 const theTetrominoes = [
@@ -116,9 +99,9 @@ let current = theTetrominoes[random][currentRotation] // selects 1st rotation of
 /* for checking whether tertromino is at left/right edge of grid
 modulus calc will evaluate 0 for left edge and 9 for right edge */
 const isAtLeftEdge = () =>
-  current.some((index) => (currentPosition + index) % width === 0)
+  current.some((index) => (currentPosition + index) % WIDTH === 0)
 const isAtRightEdge = () =>
-  current.some((index) => (currentPosition + index) % width === width - 1)
+  current.some((index) => (currentPosition + index) % WIDTH === WIDTH - 1)
 
 // DRAW THE TETROMINO
 // we "draw" the shapes by colouring in the corresponding grid divs with CSS styling
@@ -126,7 +109,7 @@ function draw() {
   current.forEach((index) => {
     squares[currentPosition + index].classList.add('tetromino')
     // uses the css class .tetromino to style the grid squares
-    squares[currentPosition + index].style.backgroundColor = colors[random]
+    squares[currentPosition + index].style.backgroundColor = COLORS[random]
     // sets the background-color for the tertromino
   })
 }
@@ -168,7 +151,7 @@ window.addEventListener(
 // MOVE DOWN FUNCTION
 function moveDown() {
   undraw() // remove squares
-  currentPosition += width // move down 1 row
+  currentPosition += WIDTH // move down 1 row
   draw() // redraw squares in new positions
   freeze() // checks what's below the tetromino
 }
@@ -178,7 +161,7 @@ function moveDown() {
 function freeze() {
   if (
     current.some((index) =>
-      squares[currentPosition + index + width].classList.contains('taken')
+      squares[currentPosition + index + WIDTH].classList.contains('taken')
     )
   ) {
     // checks the next grid square down for the class .taken
@@ -240,14 +223,14 @@ function moveRight() {
 // prevents t,l,j,i tetrominos rotating through the edge onto the other side of the grid!!!
 function checkRotatedPosition(pos) {
   pos = pos || currentPosition // gets current pos then checks if the piece is near the left side
-  if ((pos + 1) % width < 4) {
+  if ((pos + 1) % WIDTH < 4) {
     // +1 to compensate for possible difference between squares & pos
     if (isAtRightEdge()) {
       // check if it has rotated through to right side
       currentPosition += 1 // if so, add 1 to push it back
       checkRotatedPosition(pos) // check again as iTet might need +1 adjustment to pos
     }
-  } else if (pos % width > 5) {
+  } else if (pos % WIDTH > 5) {
     // checks if tetromino near right side
     if (isAtLeftEdge()) {
       // checks if it has rotated through to left side
@@ -274,18 +257,18 @@ function rotate() {
 // DISPLAYING NEXT TETROMINO IN THE MINI-GRID
 const displaySquares = document.querySelectorAll('.mini-grid div')
 // creates an array of the 16 divs in the mini-grid; we don't need Array.from() here
-const displayWidth = 4 // each row is only 4 wide
+const displayWIDTH = 4 // each row is only 4 wide
 const displayIndex = 0 // reference position on grid; top-left corner
 
 // Tetrominos without rotations; adjusted for 4x4 grid
 const upNextTetrominoes = [
-  [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 2], // jTetromino
-  [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 2 + 2], // lTetromino
-  [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1], // zTetromino
-  [2, displayWidth + 1, displayWidth + 2, displayWidth * 2 + 1], // sTetromino
-  [1, displayWidth, displayWidth + 1, displayWidth + 2], // tTetromino
-  [0, 1, displayWidth, displayWidth + 1], // oTetromino
-  [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1], // iTetromino
+  [1, displayWIDTH + 1, displayWIDTH * 2 + 1, displayWIDTH * 2], // jTetromino
+  [1, displayWIDTH + 1, displayWIDTH * 2 + 1, displayWIDTH * 2 + 2], // lTetromino
+  [0, displayWIDTH, displayWIDTH + 1, displayWIDTH * 2 + 1], // zTetromino
+  [2, displayWIDTH + 1, displayWIDTH + 2, displayWIDTH * 2 + 1], // sTetromino
+  [1, displayWIDTH, displayWIDTH + 1, displayWIDTH + 2], // tTetromino
+  [0, 1, displayWIDTH, displayWIDTH + 1], // oTetromino
+  [1, displayWIDTH + 1, displayWIDTH * 2 + 1, displayWIDTH * 3 + 1], // iTetromino
 ]
 
 function displayShape() {
@@ -298,7 +281,7 @@ function displayShape() {
     // draws next tetromino
     displaySquares[displayIndex + index].classList.add('tetromino')
     displaySquares[displayIndex + index].style.backgroundColor =
-      colors[nextRandom]
+      COLORS[nextRandom]
   })
 }
 
@@ -325,7 +308,7 @@ startBtn.addEventListener('click', () => {
     }
 
     draw() // restarts game
-    timerId = setInterval(moveDown, gameTimings[level])
+    timerId = setInterval(moveDown, GAME_TIMINGS[level])
     nextRandom = rng()
     displayShape()
   } else {
@@ -340,7 +323,7 @@ startBtn.addEventListener('click', () => {
       isGamePaused = false
       scoreDisplay.innerHTML = score
       draw()
-      timerId = setInterval(moveDown, gameTimings[level]) // unpauses game
+      timerId = setInterval(moveDown, GAME_TIMINGS[level]) // unpauses game
       displayShape()
     }
   }
@@ -351,7 +334,7 @@ it checks every row of the grid for completed lines; these are then removed and
 added back to the top of the grid. We also remove the .taken and .tetromino classes */
 function addScore() {
   let lineCount = 0
-  for (let i = 0; i < 179; i += width) {
+  for (let i = 0; i < 179; i += WIDTH) {
     const row = [
       i,
       i + 1,
@@ -376,9 +359,9 @@ function addScore() {
 
       row.forEach((index) => {
         squares[index].classList.remove('taken', 'tetromino') // clears the lines by removing classes
-        squares[index].style.backgroundColor = '' // removes background colors from cleared row
+        squares[index].style.backgroundColor = '' // removes background COLORS from cleared row
       })
-      squaresRemoved = squares.splice(i, width) // removes row, stores in squaresRemoved
+      squaresRemoved = squares.splice(i, WIDTH) // removes row, stores in squaresRemoved
       squares = squaresRemoved.concat(squares) // adds squaresRemoved to the top of the grid/array
       squares.forEach((cell) => grid.appendChild(cell)) // replaces each grid div using squares array
     }
