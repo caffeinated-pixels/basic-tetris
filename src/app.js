@@ -1,18 +1,19 @@
 import { WIDTH, GAME_TIMINGS, COLORS } from './constants/general'
 import { gameState } from './game-state'
 import { TETROMINOS } from './constants/tetrominos'
+import {
+  grid,
+  hiscoreDisplay,
+  scoreDisplay,
+  linesDisplay,
+  levelDisplay,
+  startBtn,
+} from './constants/elements'
 
-const grid = document.querySelector('.grid') // selects specified element
-
+// TODO: refactor squares usage so can set as const
 let squares = Array.from(document.querySelectorAll('.grid div'))
 /* creates an array of the 190 divs from .grid. Without Array.from() it creates
 a NodeList array that doesn't allow us to splice cleared lines */
-
-const hiscoreDisplay = document.querySelector('#hiscore') // targets html ids
-const scoreDisplay = document.querySelector('#score')
-const linesDisplay = document.querySelector('#lines')
-const levelDisplay = document.querySelector('#level')
-const startBtn = document.querySelector('#start-button')
 
 // RNG FUNCTION FOR CHOOSING A TETROMINO
 const rng = () => Math.floor(Math.random() * TETROMINOS.length)
