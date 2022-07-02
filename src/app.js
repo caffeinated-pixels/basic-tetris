@@ -1,4 +1,5 @@
 import { WIDTH, GAME_TIMINGS, COLORS } from './constants/general'
+import { gameState } from './game-state'
 import { TETROMINOS } from './constants/tetrominos'
 
 const grid = document.querySelector('.grid') // selects specified element
@@ -13,42 +14,31 @@ const linesDisplay = document.querySelector('#lines')
 const levelDisplay = document.querySelector('#level')
 const startBtn = document.querySelector('#start-button')
 
-let timerId // leave undefined until game starts
-let squaresRemoved // for storing cleared lines/rows
-
-let hiscore = 0 // for hiscore html display
-let score = 0 // for score html display
-let level = 0 // for level html display
-let lines = 0 // for lines html display
-let linesLevel = 0 // for incrementing new levels
-let isGameOver = false // change to true when game over, man!
-let isGamePaused = true // game starts off paused
-
-let currentPosition = 4 // staring position of tetromino
-let currentRotation = 0 // starting rotation of tetromino
-
 // RNG FUNCTION FOR CHOOSING A TETROMINO
 const rng = () => Math.floor(Math.random() * TETROMINOS.length)
 let nextRandom = rng() // selects nextup tetromino
 // const rng = () => 4; // for debugging!
 // let nextRandom = 4; // for debugging!
 let random = rng() // selects current tetromino
-let current = TETROMINOS[random][currentRotation] // selects 1st rotation of the tetromino
+let current = TETROMINOS[random][gameState.currentRotation] // selects 1st rotation of the tetromino
 
 /* for checking whether tertromino is at left/right edge of grid
 modulus calc will evaluate 0 for left edge and 9 for right edge */
 const isAtLeftEdge = () =>
-  current.some((index) => (currentPosition + index) % WIDTH === 0)
+  current.some((index) => (gameState.currentPosition + index) % WIDTH === 0)
 const isAtRightEdge = () =>
-  current.some((index) => (currentPosition + index) % WIDTH === WIDTH - 1)
+  current.some(
+    (index) => (gameState.currentPosition + index) % WIDTH === WIDTH - 1
+  )
 
 // DRAW THE TETROMINO
 // we "draw" the shapes by colouring in the corresponding grid divs with CSS styling
 function draw() {
   current.forEach((index) => {
-    squares[currentPosition + index].classList.add('tetromino')
+    squares[gameState.currentPosition + index].classList.add('tetromino')
     // uses the css class .tetromino to style the grid squares
-    squares[currentPosition + index].style.backgroundColor = COLORS[random]
+    squares[gameState.currentPosition + index].style.backgroundColor =
+      COLORS[random]
     // sets the background-color for the tertromino
   })
 }
@@ -57,22 +47,22 @@ function draw() {
 // to move the shapes, we have to "undraw" them first and then redraw in the new position
 function undraw() {
   current.forEach((index) => {
-    squares[currentPosition + index].classList.remove('tetromino') // removes .tetromino class
-    squares[currentPosition + index].style.backgroundColor = '' // removes the background-color
+    squares[gameState.currentPosition + index].classList.remove('tetromino') // removes .tetromino class
+    squares[gameState.currentPosition + index].style.backgroundColor = '' // removes the background-color
   })
 }
 
 // ASSIGN FUNCTIONS TO KEYCODES
 // we control the tertrominos with the arrow keys
 function control(e) {
-  if (!isGameOver && !isGamePaused) {
+  if (!gameState.isGameOver && !gameState.isGamePaused) {
     // won't excute if game is over or paused
     if (e.keyCode === 37) moveLeft()
     else if (e.keyCode === 38) rotate() // ArrowUp, obviously!
     else if (e.keyCode === 39) moveRight()
     else if (e.keyCode === 40) {
-      score += 1 // softdrop score, 1pt per row
-      scoreDisplay.innerHTML = score // update html score display
+      gameState.score += 1 // softdrop score, 1pt per row
+      scoreDisplay.innerHTML = gameState.score // update html score display
       moveDown()
     }
   }
@@ -90,7 +80,7 @@ window.addEventListener(
 // MOVE DOWN FUNCTION
 function moveDown() {
   undraw() // remove squares
-  currentPosition += WIDTH // move down 1 row
+  gameState.currentPosition += WIDTH // move down 1 row
   draw() // redraw squares in new positions
   freeze() // checks what's below the tetromino
 }
@@ -100,20 +90,22 @@ function moveDown() {
 function freeze() {
   if (
     current.some((index) =>
-      squares[currentPosition + index + WIDTH].classList.contains('taken')
+      squares[gameState.currentPosition + index + WIDTH].classList.contains(
+        'taken'
+      )
     )
   ) {
     // checks the next grid square down for the class .taken
     current.forEach((index) =>
-      squares[currentPosition + index].classList.add('taken')
+      squares[gameState.currentPosition + index].classList.add('taken')
     )
     // if true, adds to the class .taken to the grid divs & movement stops
 
     // we then start a new tetromino falling from the top
     random = nextRandom
     nextRandom = rng() // selects new tetromino
-    current = TETROMINOS[random][currentRotation]
-    currentPosition = 4 // resets to starting position
+    current = TETROMINOS[random][gameState.currentRotation]
+    gameState.currentPosition = 4 // resets to starting position
     draw() // draw new tetromino
     displayShape() // to display next tetromino in mini-grid
     addScore() // checks for completed lines when tertrominos stack
@@ -126,15 +118,15 @@ function freeze() {
 modulus calc will only eval to 0 if in grid position 0, 10, 20, 30, etc */
 function moveLeft() {
   undraw() // remove the squares
-  if (!isAtLeftEdge()) currentPosition -= 1 // moves tetromino 1 column to the left
+  if (!isAtLeftEdge()) gameState.currentPosition -= 1 // moves tetromino 1 column to the left
 
   // checks if any grid divs have the class .taken; ie whether it bumps into another tetromino
   if (
     current.some((index) =>
-      squares[currentPosition + index].classList.contains('taken')
+      squares[gameState.currentPosition + index].classList.contains('taken')
     )
   ) {
-    currentPosition += 1 // moves tetromino back 1 to the right
+    gameState.currentPosition += 1 // moves tetromino back 1 to the right
   }
 
   draw() // redraw tetromino in new position
@@ -145,14 +137,14 @@ function moveLeft() {
 modulus calc will only eval to 9 (ie 10-1=9) if in grid position 9, 19, 29, 39, etc */
 function moveRight() {
   undraw() // remove the squares
-  if (!isAtRightEdge()) currentPosition += 1 // moves tetromino 1 column to the right
+  if (!isAtRightEdge()) gameState.currentPosition += 1 // moves tetromino 1 column to the right
 
   if (
     current.some((index) =>
-      squares[currentPosition + index].classList.contains('taken')
+      squares[gameState.currentPosition + index].classList.contains('taken')
     )
   ) {
-    currentPosition -= 1 // moves tetromino back 1 to the left
+    gameState.currentPosition -= 1 // moves tetromino back 1 to the left
   }
 
   draw()
@@ -161,19 +153,19 @@ function moveRight() {
 // FUNCTION FOR CORRECTING ROTATION BUG
 // prevents t,l,j,i tetrominos rotating through the edge onto the other side of the grid!!!
 function checkRotatedPosition(pos) {
-  pos = pos || currentPosition // gets current pos then checks if the piece is near the left side
+  pos = pos || gameState.currentPosition // gets current pos then checks if the piece is near the left side
   if ((pos + 1) % WIDTH < 4) {
     // +1 to compensate for possible difference between squares & pos
     if (isAtRightEdge()) {
       // check if it has rotated through to right side
-      currentPosition += 1 // if so, add 1 to push it back
+      gameState.currentPosition += 1 // if so, add 1 to push it back
       checkRotatedPosition(pos) // check again as iTet might need +1 adjustment to pos
     }
   } else if (pos % WIDTH > 5) {
     // checks if tetromino near right side
     if (isAtLeftEdge()) {
       // checks if it has rotated through to left side
-      currentPosition -= 1 // if so, minus 1 to push it back
+      gameState.currentPosition -= 1 // if so, minus 1 to push it back
       checkRotatedPosition(pos) // check again as iTet might need +1 adjustment to pos
     }
   }
@@ -183,12 +175,12 @@ function checkRotatedPosition(pos) {
 function rotate() {
   // can cause t,l,j,i to go through wall at edge (see above)
   undraw()
-  currentRotation++
-  if (currentRotation === current.length) {
+  gameState.currentRotation++
+  if (gameState.currentRotation === current.length) {
     // resets rotation when gets to array end
-    currentRotation = 0
+    gameState.currentRotation = 0
   }
-  current = TETROMINOS[random][currentRotation] // set to new rotation
+  current = TETROMINOS[random][gameState.currentRotation] // set to new rotation
   checkRotatedPosition() // checks if tetromino has rotated through the side of grid
   draw() // redraws tetromino
 }
@@ -226,17 +218,17 @@ function displayShape() {
 
 // START/PAUSE BTN FUNCTIONALITY
 startBtn.addEventListener('click', () => {
-  if (isGameOver) {
+  if (gameState.isGameOver) {
     // reset values if game over, man!
-    score = 0
-    scoreDisplay.innerHTML = score
-    level = 0
-    levelDisplay.innerHTML = level
-    lines = 0
-    linesDisplay.innerHTML = lines
-    linesLevel = 0
-    isGameOver = false
-    isGamePaused = false
+    gameState.score = 0
+    scoreDisplay.innerHTML = gameState.score
+    gameState.level = 0
+    levelDisplay.innerHTML = gameState.level
+    gameState.lines = 0
+    linesDisplay.innerHTML = gameState.lines
+    gameState.linesLevel = 0
+    gameState.isGameOver = false
+    gameState.isGamePaused = false
 
     grid.removeChild(grid.firstChild) // remove game over message
     squares.forEach((cell) => grid.appendChild(cell)) // redraws grid
@@ -247,22 +239,22 @@ startBtn.addEventListener('click', () => {
     }
 
     draw() // restarts game
-    timerId = setInterval(moveDown, GAME_TIMINGS[level])
+    gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level])
     nextRandom = rng()
     displayShape()
   } else {
     // if !isGameOver, ie game is active or before starting 1st game
-    if (timerId) {
-      // if timerId truthy, ie not undefined/null
-      clearInterval(timerId) // pauses game
-      timerId = null
-      isGamePaused = true
+    if (gameState.timerId) {
+      // if gameState.timerId truthy, ie not undefined/null
+      clearInterval(gameState.timerId) // pauses game
+      gameState.timerId = null
+      gameState.isGamePaused = true
       scoreDisplay.innerHTML = 'paused'
     } else {
-      isGamePaused = false
-      scoreDisplay.innerHTML = score
+      gameState.isGamePaused = false
+      scoreDisplay.innerHTML = gameState.score
       draw()
-      timerId = setInterval(moveDown, GAME_TIMINGS[level]) // unpauses game
+      gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level]) // unpauses game
       displayShape()
     }
   }
@@ -291,34 +283,34 @@ function addScore() {
     if (row.every((index) => squares[index].classList.contains('taken'))) {
       // checks if every div in row has class .taken
       lineCount += 1 // adds 1 to the local number-of-lines variable
-      linesLevel += 1 // adds 1 to the global number of lines
+      gameState.linesLevel += 1 // adds 1 to the global number of lines
 
-      lines += 1 // for html display
-      linesDisplay.innerHTML = lines // update display
+      gameState.lines += 1 // for html display
+      linesDisplay.innerHTML = gameState.lines // update display
 
       row.forEach((index) => {
         squares[index].classList.remove('taken', 'tetromino') // clears the lines by removing classes
         squares[index].style.backgroundColor = '' // removes background COLORS from cleared row
       })
-      squaresRemoved = squares.splice(i, WIDTH) // removes row, stores in squaresRemoved
-      squares = squaresRemoved.concat(squares) // adds squaresRemoved to the top of the grid/array
+      gameState.squaresRemoved = squares.splice(i, WIDTH) // removes row, stores in gameState.squaresRemoved
+      squares = gameState.squaresRemoved.concat(squares) // adds gameState.squaresRemoved to the top of the grid/array
       squares.forEach((cell) => grid.appendChild(cell)) // replaces each grid div using squares array
     }
   }
 
   // based on Gameboy scoring system
-  if (lineCount === 1) score += 40 * (level + 1)
-  if (lineCount === 2) score += 100 * (level + 1)
-  if (lineCount === 3) score += 300 * (level + 1)
-  if (lineCount === 4) score += 1200 * (level + 1)
-  scoreDisplay.innerHTML = score
+  if (lineCount === 1) gameState.score += 40 * (gameState.level + 1)
+  if (lineCount === 2) gameState.score += 100 * (gameState.level + 1)
+  if (lineCount === 3) gameState.score += 300 * (gameState.level + 1)
+  if (lineCount === 4) gameState.score += 1200 * (gameState.level + 1)
+  scoreDisplay.innerHTML = gameState.score
 
   // level increment
-  if (linesLevel >= 10 && level < 20) {
-    level += 1 // increments global variable
-    linesLevel -= 10 // resets global variable & carries over extra lines
+  if (gameState.linesLevel >= 10 && gameState.level < 20) {
+    gameState.level += 1 // increments global variable
+    gameState.linesLevel -= 10 // resets global variable & carries over extra lines
   }
-  levelDisplay.innerHTML = level // updates html display
+  levelDisplay.innerHTML = gameState.level // updates html display
 }
 
 /* GAME OVER CONDITION
@@ -326,10 +318,10 @@ checks if any of the squares in the tetromino starting position are taken */
 function gameOver() {
   if (
     current.some((index) =>
-      squares[currentPosition + index].classList.contains('taken')
+      squares[gameState.currentPosition + index].classList.contains('taken')
     )
   ) {
-    isGameOver = true
+    gameState.isGameOver = true
 
     for (let i = 0; i < 180; i++) {
       squares[i].classList.remove('taken') // removes .taken class from each visible div
@@ -344,12 +336,12 @@ function gameOver() {
     grid.innerHTML =
       '<div class="text-center game-over"><p>GAME OVER!</p><p>PLEASE TRY AGAIN &#10084;</p></div>' // game over message added to grid space
 
-    if (score > hiscore) {
+    if (gameState.score > gameState.hiscore) {
       // updates hi score
-      hiscore = score * 1
+      gameState.hiscore = gameState.score * 1
     }
 
-    hiscoreDisplay.innerHTML = hiscore // changes score display
-    clearInterval(timerId) // clears timer interval for moveDown
+    hiscoreDisplay.innerHTML = gameState.hiscore // changes score display
+    clearInterval(gameState.timerId) // clears timer interval for moveDown
   }
 }
