@@ -305,7 +305,7 @@ function addScore() {
 
       gameState.squares.unshift(...gameState.squaresRemoved) // adds gameState.squaresRemoved to the top of the grid/array
 
-      gameState.squares.forEach((cell) => grid.appendChild(cell)) // replaces each grid div using squares array
+      grid.replaceChildren(...gameState.squares) // replaces grid divs using squares array
     }
   }
 
