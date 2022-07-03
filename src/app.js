@@ -63,7 +63,7 @@ function control(e) {
     else if (e.keyCode === 39) moveRight()
     else if (e.keyCode === 40) {
       gameState.score += 1 // softdrop score, 1pt per row
-      scoreDisplay.innerHTML = gameState.score // update html score display
+      scoreDisplay.textContent = gameState.score // update html score display
       moveDown()
     }
   }
@@ -228,11 +228,11 @@ startBtn.addEventListener('click', () => {
   if (gameState.isGameOver) {
     // reset values if game over, man!
     gameState.score = 0
-    scoreDisplay.innerHTML = gameState.score
+    scoreDisplay.textContent = gameState.score
     gameState.level = 0
-    levelDisplay.innerHTML = gameState.level
+    levelDisplay.textContent = gameState.level
     gameState.lines = 0
-    linesDisplay.innerHTML = gameState.lines
+    linesDisplay.textContent = gameState.lines
     gameState.linesLevel = 0
     gameState.isGameOver = false
     gameState.isGamePaused = false
@@ -256,10 +256,10 @@ startBtn.addEventListener('click', () => {
       clearInterval(gameState.timerId) // pauses game
       gameState.timerId = null
       gameState.isGamePaused = true
-      scoreDisplay.innerHTML = 'paused'
+      scoreDisplay.textContent = 'paused'
     } else {
       gameState.isGamePaused = false
-      scoreDisplay.innerHTML = gameState.score
+      scoreDisplay.textContent = gameState.score
       draw()
       gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level]) // unpauses game
       displayShape()
@@ -295,7 +295,7 @@ function addScore() {
       gameState.linesLevel += 1 // adds 1 to the global number of lines
 
       gameState.lines += 1 // for html display
-      linesDisplay.innerHTML = gameState.lines // update display
+      linesDisplay.textContent = gameState.lines // update display
 
       row.forEach((index) => {
         gameState.squares[index].classList.remove('taken', 'tetromino') // clears the lines by removing classes
@@ -314,14 +314,14 @@ function addScore() {
   if (lineCount === 2) gameState.score += 100 * (gameState.level + 1)
   if (lineCount === 3) gameState.score += 300 * (gameState.level + 1)
   if (lineCount === 4) gameState.score += 1200 * (gameState.level + 1)
-  scoreDisplay.innerHTML = gameState.score
+  scoreDisplay.textContent = gameState.score
 
   // level increment
   if (gameState.linesLevel >= 10 && gameState.level < 20) {
     gameState.level += 1 // increments global variable
     gameState.linesLevel -= 10 // resets global variable & carries over extra lines
   }
-  levelDisplay.innerHTML = gameState.level // updates html display
+  levelDisplay.textContent = gameState.level // updates html display
 }
 
 /* GAME OVER CONDITION
@@ -346,15 +346,24 @@ function gameOver() {
     }
 
     grid.style.backgroundColor = '#b59aef' // game over background-color
-    grid.innerHTML =
-      '<div class="text-center game-over"><p>GAME OVER!</p><p>PLEASE TRY AGAIN &#10084;</p></div>' // game over message added to grid space
+
+    // TODO: move game over message to its own function
+    const gameOverDiv = document.createElement('div')
+    gameOverDiv.classList.add('text-center', 'game-over')
+    const gameOverText = document.createElement('p')
+    gameOverText.textContent = 'GAME OVER!'
+    gameOverDiv.appendChild(gameOverText)
+    const tryAgainText = document.createElement('p')
+    tryAgainText.textContent = 'PLEASE TRY AGAIN \u2764'
+    gameOverDiv.appendChild(tryAgainText)
+    grid.replaceChildren(gameOverDiv)
 
     if (gameState.score > gameState.hiscore) {
       // updates hi score
       gameState.hiscore = gameState.score * 1
     }
 
-    hiscoreDisplay.innerHTML = gameState.hiscore // changes score display
+    hiscoreDisplay.textContent = gameState.hiscore // changes score display
     clearInterval(gameState.timerId) // clears timer interval for moveDown
   }
 }
