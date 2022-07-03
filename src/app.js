@@ -10,11 +10,6 @@ import {
   startBtn,
 } from './constants/elements'
 
-// TODO: refactor squares usage so can set as const
-let squares = Array.from(document.querySelectorAll('.grid div'))
-/* creates an array of the 190 divs from .grid. Without Array.from() it creates
-a NodeList array that doesn't allow us to splice cleared lines */
-
 // RNG FUNCTION FOR CHOOSING A TETROMINO
 const rng = () => Math.floor(Math.random() * TETROMINOS.length)
 let nextRandom = rng() // selects nextup tetromino
@@ -36,9 +31,11 @@ const isAtRightEdge = () =>
 // we "draw" the shapes by colouring in the corresponding grid divs with CSS styling
 function draw() {
   current.forEach((index) => {
-    squares[gameState.currentPosition + index].classList.add('tetromino')
+    gameState.squares[gameState.currentPosition + index].classList.add(
+      'tetromino'
+    )
     // uses the css class .tetromino to style the grid squares
-    squares[gameState.currentPosition + index].style.backgroundColor =
+    gameState.squares[gameState.currentPosition + index].style.backgroundColor =
       COLORS[random]
     // sets the background-color for the tertromino
   })
@@ -48,8 +45,11 @@ function draw() {
 // to move the shapes, we have to "undraw" them first and then redraw in the new position
 function undraw() {
   current.forEach((index) => {
-    squares[gameState.currentPosition + index].classList.remove('tetromino') // removes .tetromino class
-    squares[gameState.currentPosition + index].style.backgroundColor = '' // removes the background-color
+    gameState.squares[gameState.currentPosition + index].classList.remove(
+      'tetromino'
+    ) // removes .tetromino class
+    gameState.squares[gameState.currentPosition + index].style.backgroundColor =
+      '' // removes the background-color
   })
 }
 
@@ -91,14 +91,16 @@ function moveDown() {
 function freeze() {
   if (
     current.some((index) =>
-      squares[gameState.currentPosition + index + WIDTH].classList.contains(
-        'taken'
-      )
+      gameState.squares[
+        gameState.currentPosition + index + WIDTH
+      ].classList.contains('taken')
     )
   ) {
     // checks the next grid square down for the class .taken
     current.forEach((index) =>
-      squares[gameState.currentPosition + index].classList.add('taken')
+      gameState.squares[gameState.currentPosition + index].classList.add(
+        'taken'
+      )
     )
     // if true, adds to the class .taken to the grid divs & movement stops
 
@@ -124,7 +126,9 @@ function moveLeft() {
   // checks if any grid divs have the class .taken; ie whether it bumps into another tetromino
   if (
     current.some((index) =>
-      squares[gameState.currentPosition + index].classList.contains('taken')
+      gameState.squares[gameState.currentPosition + index].classList.contains(
+        'taken'
+      )
     )
   ) {
     gameState.currentPosition += 1 // moves tetromino back 1 to the right
@@ -142,7 +146,9 @@ function moveRight() {
 
   if (
     current.some((index) =>
-      squares[gameState.currentPosition + index].classList.contains('taken')
+      gameState.squares[gameState.currentPosition + index].classList.contains(
+        'taken'
+      )
     )
   ) {
     gameState.currentPosition -= 1 // moves tetromino back 1 to the left
@@ -232,11 +238,11 @@ startBtn.addEventListener('click', () => {
     gameState.isGamePaused = false
 
     grid.removeChild(grid.firstChild) // remove game over message
-    squares.forEach((cell) => grid.appendChild(cell)) // redraws grid
+    gameState.squares.forEach((cell) => grid.appendChild(cell)) // redraws grid
     grid.style.backgroundColor = '#ffd37b' // resets background color
     for (let i = 0; i < 180; i++) {
       // reset grid squares color
-      squares[i].style.backgroundColor = ''
+      gameState.squares[i].style.backgroundColor = ''
     }
 
     draw() // restarts game
@@ -281,7 +287,9 @@ function addScore() {
     ]
     // creates an array of div/cell nums for each grid row
 
-    if (row.every((index) => squares[index].classList.contains('taken'))) {
+    if (
+      row.every((index) => gameState.squares[index].classList.contains('taken'))
+    ) {
       // checks if every div in row has class .taken
       lineCount += 1 // adds 1 to the local number-of-lines variable
       gameState.linesLevel += 1 // adds 1 to the global number of lines
@@ -290,12 +298,14 @@ function addScore() {
       linesDisplay.innerHTML = gameState.lines // update display
 
       row.forEach((index) => {
-        squares[index].classList.remove('taken', 'tetromino') // clears the lines by removing classes
-        squares[index].style.backgroundColor = '' // removes background COLORS from cleared row
+        gameState.squares[index].classList.remove('taken', 'tetromino') // clears the lines by removing classes
+        gameState.squares[index].style.backgroundColor = '' // removes background COLORS from cleared row
       })
-      gameState.squaresRemoved = squares.splice(i, WIDTH) // removes row, stores in gameState.squaresRemoved
-      squares = gameState.squaresRemoved.concat(squares) // adds gameState.squaresRemoved to the top of the grid/array
-      squares.forEach((cell) => grid.appendChild(cell)) // replaces each grid div using squares array
+      gameState.squaresRemoved = gameState.squares.splice(i, WIDTH) // removes row, stores in gameState.squaresRemoved
+
+      gameState.squares.unshift(...gameState.squaresRemoved) // adds gameState.squaresRemoved to the top of the grid/array
+
+      gameState.squares.forEach((cell) => grid.appendChild(cell)) // replaces each grid div using squares array
     }
   }
 
@@ -319,14 +329,16 @@ checks if any of the squares in the tetromino starting position are taken */
 function gameOver() {
   if (
     current.some((index) =>
-      squares[gameState.currentPosition + index].classList.contains('taken')
+      gameState.squares[gameState.currentPosition + index].classList.contains(
+        'taken'
+      )
     )
   ) {
     gameState.isGameOver = true
 
     for (let i = 0; i < 180; i++) {
-      squares[i].classList.remove('taken') // removes .taken class from each visible div
-      squares[i].classList.remove('tetromino') // removes .tetromino class
+      gameState.squares[i].classList.remove('taken') // removes .taken class from each visible div
+      gameState.squares[i].classList.remove('tetromino') // removes .tetromino class
     }
 
     while (grid.firstChild) {
