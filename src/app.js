@@ -1,14 +1,16 @@
-import { WIDTH, GAME_TIMINGS, COLORS } from './constants/general'
 import { gameState } from './game-state'
-import { TETROMINOS } from './constants/tetrominos'
 import {
+  WIDTH,
+  GAME_TIMINGS,
+  COLORS,
+  TETROMINOS,
   grid,
   hiscoreDisplay,
   scoreDisplay,
   linesDisplay,
   levelDisplay,
   startBtn,
-} from './constants/elements'
+} from './constants/'
 
 // RNG FUNCTION FOR CHOOSING A TETROMINO
 const rng = () => Math.floor(Math.random() * TETROMINOS.length)
