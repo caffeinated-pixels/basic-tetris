@@ -12,8 +12,8 @@ import {
   startBtn,
 } from './constants/'
 
-// RNG FUNCTION FOR CHOOSING A TETROMINO
-const rng = () => Math.floor(Math.random() * TETROMINOS.length)
+import { rng } from './functions/rng'
+
 let nextRandom = rng() // selects nextup tetromino
 // const rng = () => 4; // for debugging!
 // let nextRandom = 4; // for debugging!
