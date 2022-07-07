@@ -1,55 +1,25 @@
+import { COLORS, GAME_TIMINGS, TETROMINOS, WIDTH } from './constants/'
 import { gameState } from './game-state'
-import { WIDTH, GAME_TIMINGS, COLORS, TETROMINOS } from './constants/'
 
 import {
   grid,
   hiscoreDisplay,
-  scoreDisplay,
-  linesDisplay,
   levelDisplay,
+  linesDisplay,
+  scoreDisplay,
   startBtn,
 } from './dom/elements'
 
-import { rng, setFirstTetromino } from './functions/setNewTetromino'
+import {
+  drawTetromino,
+  isAtLeftEdge,
+  isAtRightEdge,
+  rng,
+  setFirstTetromino,
+  undrawTetromino,
+} from './functions/'
 
 setFirstTetromino(gameState)
-
-/* for checking whether tertromino is at left/right edge of grid
-modulus calc will evaluate 0 for left edge and 9 for right edge */
-const isAtLeftEdge = () =>
-  gameState.currentTetromino.some(
-    (index) => (gameState.currentPosition + index) % WIDTH === 0
-  )
-const isAtRightEdge = () =>
-  gameState.currentTetromino.some(
-    (index) => (gameState.currentPosition + index) % WIDTH === WIDTH - 1
-  )
-
-// DRAW THE TETROMINO
-// we "draw" the shapes by colouring in the corresponding grid divs with CSS styling
-function draw() {
-  gameState.currentTetromino.forEach((index) => {
-    gameState.squares[gameState.currentPosition + index].classList.add(
-      'tetromino'
-    )
-    // uses the css class .tetromino to style the grid squares
-    gameState.squares[gameState.currentPosition + index].style.backgroundColor =
-      COLORS[gameState.tetrominoIndex]
-    // sets the background-color for the tertromino
-  })
-}
-
-// UNDRAW THE TETROMINO
-// to move the shapes, we have to "undraw" them first and then redraw in the new position
-function undraw() {
-  gameState.currentTetromino.forEach((index) => {
-    gameState.squares[gameState.currentPosition + index].classList.remove(
-      'tetromino'
-    ) // removes .tetromino class
-    gameState.squares[gameState.currentPosition + index].style.backgroundColor =
-      '' // removes the background-color
-  })
-}
 
 // ASSIGN FUNCTIONS TO KEYCODES
 // we control the tertrominos with the arrow keys
@@ -78,9 +48,9 @@ window.addEventListener(
 
 // MOVE DOWN FUNCTION
 function moveDown() {
-  undraw() // remove squares
+  undrawTetromino() // remove squares
   gameState.currentPosition += WIDTH // move down 1 row
-  draw() // redraw squares in new positions
+  drawTetromino() // redraw squares in new positions
   freeze() // checks what's below the tetromino
 }
 
@@ -108,7 +78,7 @@ function freeze() {
     gameState.currentTetromino =
       TETROMINOS[gameState.tetrominoIndex][gameState.currentRotation]
     gameState.currentPosition = 4 // resets to starting position
-    draw() // draw new tetromino
+    drawTetromino() // draw new tetromino
     displayShape() // to display next tetromino in mini-grid
     addScore() // checks for completed lines when tertrominos stack
     gameOver() // checks for game over condition
@@ -119,7 +89,7 @@ function freeze() {
 /* won't move left if at grid edge or there is a blockage (.taken);
 modulus calc will only eval to 0 if in grid position 0, 10, 20, 30, etc */
 function moveLeft() {
-  undraw() // remove the squares
+  undrawTetromino() // remove the squares
   if (!isAtLeftEdge()) gameState.currentPosition -= 1 // moves tetromino 1 column to the left
 
   // checks if any grid divs have the class .taken; ie whether it bumps into another tetromino
@@ -133,14 +103,14 @@ function moveLeft() {
     gameState.currentPosition += 1 // moves tetromino back 1 to the right
   }
 
-  draw() // redraw tetromino in new position
+  drawTetromino() // redraw tetromino in new position
 }
 
 // MOVE RIGHT FUNCTION
 /* won't move right if at edge or there is a blockage (.taken);
 modulus calc will only eval to 9 (ie 10-1=9) if in grid position 9, 19, 29, 39, etc */
 function moveRight() {
-  undraw() // remove the squares
+  undrawTetromino() // remove the squares
   if (!isAtRightEdge()) gameState.currentPosition += 1 // moves tetromino 1 column to the right
 
   if (
@@ -153,7 +123,7 @@ function moveRight() {
     gameState.currentPosition -= 1 // moves tetromino back 1 to the left
   }
 
-  draw()
+  drawTetromino()
 }
 
 // FUNCTION FOR CORRECTING ROTATION BUG
@@ -180,7 +150,7 @@ function checkRotatedPosition(pos) {
 // ROTATE TETROMINO FUNCTION
 function rotate() {
   // can cause t,l,j,i to go through wall at edge (see above)
-  undraw()
+  undrawTetromino()
   gameState.currentRotation++
   if (gameState.currentRotation === gameState.currentTetromino.length) {
     // resets rotation when gets to array end
@@ -189,7 +159,7 @@ function rotate() {
   gameState.currentTetromino =
     TETROMINOS[gameState.tetrominoIndex][gameState.currentRotation] // set to new rotation
   checkRotatedPosition() // checks if tetromino has rotated through the side of grid
-  draw() // redraws tetromino
+  drawTetromino() // redraws tetromino
 }
 
 // DISPLAYING NEXT TETROMINO IN THE MINI-GRID
@@ -245,7 +215,7 @@ startBtn.addEventListener('click', () => {
       gameState.squares[i].style.backgroundColor = ''
     }
 
-    draw() // restarts game
+    drawTetromino() // restarts game
     gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level])
     gameState.nextTetrominoIndex = rng()
     displayShape()
@@ -260,7 +230,7 @@ startBtn.addEventListener('click', () => {
     } else {
       gameState.isGamePaused = false
       scoreDisplay.textContent = gameState.score
-      draw()
+      drawTetromino()
       gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level]) // unpauses game
       displayShape()
     }

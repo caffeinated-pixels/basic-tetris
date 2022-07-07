@@ -3,7 +3,6 @@ import { TETROMINOS } from '../constants'
 export const rng = () => Math.floor(Math.random() * TETROMINOS.length)
 
 export const setFirstTetromino = (gameState) => {
-  console.log('first tetromino')
   gameState.nextTetrominoIndex = rng() // selects nextup tetromino
   gameState.tetrominoIndex = rng() // selects current tetromino
   gameState.currentTetromino =
