@@ -1,16 +1,14 @@
 import { gameState } from './game-state'
+import { WIDTH, GAME_TIMINGS, COLORS, TETROMINOS } from './constants/'
+
 import {
-  WIDTH,
-  GAME_TIMINGS,
-  COLORS,
-  TETROMINOS,
   grid,
   hiscoreDisplay,
   scoreDisplay,
   linesDisplay,
   levelDisplay,
   startBtn,
-} from './constants/'
+} from './dom/elements'
 
 import { rng } from './functions/rng'
 
