@@ -10,7 +10,7 @@ import {
   startBtn,
 } from './dom/elements'
 
-import { rng } from './functions/rng'
+import { rng } from './functions/setNewTetromino'
 
 let nextRandom = rng() // selects nextup tetromino
 // const rng = () => 4; // for debugging!
