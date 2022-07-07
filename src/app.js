@@ -26,10 +26,10 @@ setFirstTetromino(gameState)
 function control(e) {
   if (!gameState.isGameOver && !gameState.isGamePaused) {
     // won't excute if game is over or paused
-    if (e.keyCode === 37) moveLeft()
-    else if (e.keyCode === 38) rotate() // ArrowUp, obviously!
-    else if (e.keyCode === 39) moveRight()
-    else if (e.keyCode === 40) {
+    if (e.key === 'ArrowLeft') moveLeft()
+    else if (e.key === 'ArrowUp') rotate() // ArrowUp, obviously!
+    else if (e.key === 'ArrowRight') moveRight()
+    else if (e.key === 'ArrowDown') {
       gameState.score += 1 // softdrop score, 1pt per row
       scoreDisplay.textContent = gameState.score // update html score display
       moveDown()
