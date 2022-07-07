@@ -12,31 +12,32 @@ import {
 
 import { rng } from './functions/setNewTetromino'
 
-let nextRandom = rng() // selects nextup tetromino
-// const rng = () => 4; // for debugging!
-// let nextRandom = 4; // for debugging!
-let random = rng() // selects current tetromino
-let current = TETROMINOS[random][gameState.currentRotation] // selects 1st rotation of the tetromino
+gameState.nextTetrominoIndex = rng() // selects nextup tetromino
+gameState.tetrominoIndex = rng() // selects current tetromino
+gameState.currentTetromino =
+  TETROMINOS[gameState.tetrominoIndex][gameState.currentRotation] // selects 1st rotation of the tetromino
 
 /* for checking whether tertromino is at left/right edge of grid
 modulus calc will evaluate 0 for left edge and 9 for right edge */
 const isAtLeftEdge = () =>
-  current.some((index) => (gameState.currentPosition + index) % WIDTH === 0)
+  gameState.currentTetromino.some(
+    (index) => (gameState.currentPosition + index) % WIDTH === 0
+  )
 const isAtRightEdge = () =>
-  current.some(
+  gameState.currentTetromino.some(
     (index) => (gameState.currentPosition + index) % WIDTH === WIDTH - 1
   )
 
 // DRAW THE TETROMINO
 // we "draw" the shapes by colouring in the corresponding grid divs with CSS styling
 function draw() {
-  current.forEach((index) => {
+  gameState.currentTetromino.forEach((index) => {
     gameState.squares[gameState.currentPosition + index].classList.add(
       'tetromino'
     )
     // uses the css class .tetromino to style the grid squares
     gameState.squares[gameState.currentPosition + index].style.backgroundColor =
-      COLORS[random]
+      COLORS[gameState.tetrominoIndex]
     // sets the background-color for the tertromino
   })
 }
@@ -44,7 +45,7 @@ function draw() {
 // UNDRAW THE TETROMINO
 // to move the shapes, we have to "undraw" them first and then redraw in the new position
 function undraw() {
-  current.forEach((index) => {
+  gameState.currentTetromino.forEach((index) => {
     gameState.squares[gameState.currentPosition + index].classList.remove(
       'tetromino'
     ) // removes .tetromino class
@@ -90,14 +91,14 @@ function moveDown() {
 // checks for "taken" squares below the current tetromino
 function freeze() {
   if (
-    current.some((index) =>
+    gameState.currentTetromino.some((index) =>
       gameState.squares[
         gameState.currentPosition + index + WIDTH
       ].classList.contains('taken')
     )
   ) {
     // checks the next grid square down for the class .taken
-    current.forEach((index) =>
+    gameState.currentTetromino.forEach((index) =>
       gameState.squares[gameState.currentPosition + index].classList.add(
         'taken'
       )
@@ -105,9 +106,10 @@ function freeze() {
     // if true, adds to the class .taken to the grid divs & movement stops
 
     // we then start a new tetromino falling from the top
-    random = nextRandom
-    nextRandom = rng() // selects new tetromino
-    current = TETROMINOS[random][gameState.currentRotation]
+    gameState.tetrominoIndex = gameState.nextTetrominoIndex
+    gameState.nextTetrominoIndex = rng() // selects new tetromino
+    gameState.currentTetromino =
+      TETROMINOS[gameState.tetrominoIndex][gameState.currentRotation]
     gameState.currentPosition = 4 // resets to starting position
     draw() // draw new tetromino
     displayShape() // to display next tetromino in mini-grid
@@ -125,7 +127,7 @@ function moveLeft() {
 
   // checks if any grid divs have the class .taken; ie whether it bumps into another tetromino
   if (
-    current.some((index) =>
+    gameState.currentTetromino.some((index) =>
       gameState.squares[gameState.currentPosition + index].classList.contains(
         'taken'
       )
@@ -145,7 +147,7 @@ function moveRight() {
   if (!isAtRightEdge()) gameState.currentPosition += 1 // moves tetromino 1 column to the right
 
   if (
-    current.some((index) =>
+    gameState.currentTetromino.some((index) =>
       gameState.squares[gameState.currentPosition + index].classList.contains(
         'taken'
       )
@@ -183,11 +185,12 @@ function rotate() {
   // can cause t,l,j,i to go through wall at edge (see above)
   undraw()
   gameState.currentRotation++
-  if (gameState.currentRotation === current.length) {
+  if (gameState.currentRotation === gameState.currentTetromino.length) {
     // resets rotation when gets to array end
     gameState.currentRotation = 0
   }
-  current = TETROMINOS[random][gameState.currentRotation] // set to new rotation
+  gameState.currentTetromino =
+    TETROMINOS[gameState.tetrominoIndex][gameState.currentRotation] // set to new rotation
   checkRotatedPosition() // checks if tetromino has rotated through the side of grid
   draw() // redraws tetromino
 }
@@ -215,11 +218,11 @@ function displayShape() {
     square.classList.remove('tetromino') // clears the mini-grid
     square.style.backgroundColor = '' // remove color
   })
-  upNextTetrominoes[nextRandom].forEach((index) => {
+  upNextTetrominoes[gameState.nextTetrominoIndex].forEach((index) => {
     // draws next tetromino
     displaySquares[displayIndex + index].classList.add('tetromino')
     displaySquares[displayIndex + index].style.backgroundColor =
-      COLORS[nextRandom]
+      COLORS[gameState.nextTetrominoIndex]
   })
 }
 
@@ -247,7 +250,7 @@ startBtn.addEventListener('click', () => {
 
     draw() // restarts game
     gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level])
-    nextRandom = rng()
+    gameState.nextTetrominoIndex = rng()
     displayShape()
   } else {
     // if !isGameOver, ie game is active or before starting 1st game
@@ -328,7 +331,7 @@ function addScore() {
 checks if any of the squares in the tetromino starting position are taken */
 function gameOver() {
   if (
-    current.some((index) =>
+    gameState.currentTetromino.some((index) =>
       gameState.squares[gameState.currentPosition + index].classList.contains(
         'taken'
       )
