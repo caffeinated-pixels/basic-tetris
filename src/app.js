@@ -10,12 +10,9 @@ import {
   startBtn,
 } from './dom/elements'
 
-import { rng } from './functions/setNewTetromino'
+import { rng, setFirstTetromino } from './functions/setNewTetromino'
 
-gameState.nextTetrominoIndex = rng() // selects nextup tetromino
-gameState.tetrominoIndex = rng() // selects current tetromino
-gameState.currentTetromino =
-  TETROMINOS[gameState.tetrominoIndex][gameState.currentRotation] // selects 1st rotation of the tetromino
+setFirstTetromino(gameState)
 
 /* for checking whether tertromino is at left/right edge of grid
 modulus calc will evaluate 0 for left edge and 9 for right edge */
