@@ -7,6 +7,7 @@ import {
   linesDisplay,
   scoreDisplay,
   startBtn,
+  nextTetrominoDisplay,
 } from './dom/elements'
 
 import {
@@ -157,9 +158,6 @@ function rotate() {
   drawTetromino() // redraws tetromino
 }
 
-// DISPLAYING NEXT TETROMINO IN THE MINI-GRID
-const displaySquares = document.querySelectorAll('.mini-grid div')
-// creates an array of the 16 divs in the mini-grid; we don't need Array.from() here
 const displayWIDTH = 4 // each row is only 4 wide
 const displayIndex = 0 // reference position on grid; top-left corner
 
@@ -176,14 +174,14 @@ const upNextTetrominoes = [
 
 function displayShape() {
   // displays next tetromino in the mini-grid
-  displaySquares.forEach((square) => {
+  nextTetrominoDisplay.forEach((square) => {
     square.classList.remove('tetromino') // clears the mini-grid
     square.style.backgroundColor = '' // remove color
   })
   upNextTetrominoes[gameState.nextTetrominoIndex].forEach((index) => {
     // draws next tetromino
-    displaySquares[displayIndex + index].classList.add('tetromino')
-    displaySquares[displayIndex + index].style.backgroundColor =
+    nextTetrominoDisplay[displayIndex + index].classList.add('tetromino')
+    nextTetrominoDisplay[displayIndex + index].style.backgroundColor =
       COLORS[gameState.nextTetrominoIndex]
   })
 }
