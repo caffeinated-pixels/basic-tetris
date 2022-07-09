@@ -13,4 +13,5 @@ setFirstTetromino(gameState)
 
 document.addEventListener('keydown', arrowKeyControls)
 window.addEventListener('keydown', preventScrolling)
-startBtn.addEventListener('click', startStopGame)
+
+if (startBtn) startBtn.addEventListener('click', startStopGame)
