@@ -13,6 +13,7 @@ const displayGameOverMessage = () => {
   grid.replaceChildren(gameOverDiv)
 }
 
+// TODO: clear nextTetrominoDisplay when game is over
 /* GAME OVER CONDITION
 checks if any of the squares in the tetromino starting position are taken */
 export const gameOver = () => {

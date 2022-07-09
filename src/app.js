@@ -1,4 +1,4 @@
-import { COLORS, GAME_TIMINGS, TETROMINOS, WIDTH } from './constants/'
+import { GAME_TIMINGS, TETROMINOS, WIDTH } from './constants/'
 import { gameState } from './game-state'
 
 import {
@@ -7,11 +7,11 @@ import {
   linesDisplay,
   scoreDisplay,
   startBtn,
-  nextTetrominoDisplay,
 } from './dom/elements'
 
 import {
   addScore,
+  displayNextTetromino,
   drawTetromino,
   isAtLeftEdge,
   isAtRightEdge,
@@ -75,7 +75,7 @@ function freeze() {
       TETROMINOS[gameState.tetrominoIndex][gameState.currentRotation]
     gameState.currentPosition = 4 // resets to starting position
     drawTetromino() // draw new tetromino
-    displayShape() // to display next tetromino in mini-grid
+    displayNextTetromino() // to display next tetromino in mini-grid
     addScore() // checks for completed lines when tertrominos stack
     gameOver() // checks for game over condition
   }
@@ -158,34 +158,6 @@ function rotate() {
   drawTetromino() // redraws tetromino
 }
 
-const displayWIDTH = 4 // each row is only 4 wide
-const displayIndex = 0 // reference position on grid; top-left corner
-
-// Tetrominos without rotations; adjusted for 4x4 grid
-const upNextTetrominoes = [
-  [1, displayWIDTH + 1, displayWIDTH * 2 + 1, displayWIDTH * 2], // jTetromino
-  [1, displayWIDTH + 1, displayWIDTH * 2 + 1, displayWIDTH * 2 + 2], // lTetromino
-  [0, displayWIDTH, displayWIDTH + 1, displayWIDTH * 2 + 1], // zTetromino
-  [2, displayWIDTH + 1, displayWIDTH + 2, displayWIDTH * 2 + 1], // sTetromino
-  [1, displayWIDTH, displayWIDTH + 1, displayWIDTH + 2], // tTetromino
-  [0, 1, displayWIDTH, displayWIDTH + 1], // oTetromino
-  [1, displayWIDTH + 1, displayWIDTH * 2 + 1, displayWIDTH * 3 + 1], // iTetromino
-]
-
-function displayShape() {
-  // displays next tetromino in the mini-grid
-  nextTetrominoDisplay.forEach((square) => {
-    square.classList.remove('tetromino') // clears the mini-grid
-    square.style.backgroundColor = '' // remove color
-  })
-  upNextTetrominoes[gameState.nextTetrominoIndex].forEach((index) => {
-    // draws next tetromino
-    nextTetrominoDisplay[displayIndex + index].classList.add('tetromino')
-    nextTetrominoDisplay[displayIndex + index].style.backgroundColor =
-      COLORS[gameState.nextTetrominoIndex]
-  })
-}
-
 // START/PAUSE BTN FUNCTIONALITY
 startBtn.addEventListener('click', () => {
   if (gameState.isGameOver) {
@@ -211,7 +183,7 @@ startBtn.addEventListener('click', () => {
     drawTetromino() // restarts game
     gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level])
     gameState.nextTetrominoIndex = rng()
-    displayShape()
+    displayNextTetromino()
   } else {
     // if !isGameOver, ie game is active or before starting 1st game
     if (gameState.timerId) {
@@ -225,7 +197,7 @@ startBtn.addEventListener('click', () => {
       scoreDisplay.textContent = gameState.score
       drawTetromino()
       gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level]) // unpauses game
-      displayShape()
+      displayNextTetromino()
     }
   }
 })
