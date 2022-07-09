@@ -8,3 +8,4 @@ export * from './undrawTetromino'
 
 export * from './preventScrolling'
 export * from './addScore'
+export * from './gameOver'
