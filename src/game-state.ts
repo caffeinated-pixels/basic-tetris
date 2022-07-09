@@ -12,8 +12,8 @@ interface gameState {
   currentPosition: number
   currentRotation: number
   currentTetromino: number[] | null
-  tetrominoIndex: number | null
-  nextTetrominoIndex: number | null
+  tetrominoIndex: number
+  nextTetrominoIndex: number
 }
 
 const initialState: gameState = {
@@ -30,8 +30,8 @@ const initialState: gameState = {
   currentPosition: 4, // staring position of tetromino
   currentRotation: 0, // starting rotation of tetromino
   currentTetromino: null, // store tetromino in current rotation
-  tetrominoIndex: null, // store current tetromino index
-  nextTetrominoIndex: null, // store next tetromino index
+  tetrominoIndex: 0, // store current tetromino index
+  nextTetrominoIndex: 0, // store next tetromino index
 }
 
 /* sqaure creates an array of the 190 divs from .grid. Without Array.from() it creates
