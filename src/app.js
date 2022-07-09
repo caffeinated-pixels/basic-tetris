@@ -1,4 +1,4 @@
-import { GAME_TIMINGS, TETROMINOS, WIDTH } from './constants/'
+import { GAME_TIMINGS, WIDTH } from './constants/'
 import { gameState } from './game-state'
 
 import {
@@ -10,7 +10,6 @@ import {
 } from './dom/elements'
 
 import {
-  addScore,
   displayNextTetromino,
   drawTetromino,
   isAtLeftEdge,
@@ -19,8 +18,8 @@ import {
   rng,
   setFirstTetromino,
   undrawTetromino,
-  gameOver,
   rotateTetromino,
+  stopTetromino,
 } from './functions/'
 
 setFirstTetromino(gameState)
@@ -48,38 +47,7 @@ function moveDown() {
   undrawTetromino() // remove squares
   gameState.currentPosition += WIDTH // move down 1 row
   drawTetromino() // redraw squares in new positions
-  freeze() // checks what's below the tetromino
-}
-
-// FREEZE FUNCTION
-// checks for "taken" squares below the current tetromino
-function freeze() {
-  if (
-    gameState.currentTetromino.some((index) =>
-      gameState.squares[
-        gameState.currentPosition + index + WIDTH
-      ].classList.contains('taken')
-    )
-  ) {
-    // checks the next grid square down for the class .taken
-    gameState.currentTetromino.forEach((index) =>
-      gameState.squares[gameState.currentPosition + index].classList.add(
-        'taken'
-      )
-    )
-    // if true, adds to the class .taken to the grid divs & movement stops
-
-    // we then start a new tetromino falling from the top
-    gameState.tetrominoIndex = gameState.nextTetrominoIndex
-    gameState.nextTetrominoIndex = rng() // selects new tetromino
-    gameState.currentTetromino =
-      TETROMINOS[gameState.tetrominoIndex][gameState.currentRotation]
-    gameState.currentPosition = 4 // resets to starting position
-    drawTetromino() // draw new tetromino
-    displayNextTetromino() // to display next tetromino in mini-grid
-    addScore() // checks for completed lines when tertrominos stack
-    gameOver() // checks for game over condition
-  }
+  stopTetromino() // checks what's below the tetromino
 }
 
 // MOVE LEFT FUNCTION
