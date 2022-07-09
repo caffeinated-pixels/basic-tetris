@@ -11,6 +11,9 @@ const initialState = {
   isGamePaused: true, // game starts off paused
   currentPosition: 4, // staring position of tetromino
   currentRotation: 0, // starting rotation of tetromino
+  currentTetromino: null, // store tetromino in current rotation
+  tetrominoIndex: null, // store current tetromino index
+  nextTetrominoIndex: null, // store next tetromino index
 }
 
 /* sqaure creates an array of the 190 divs from .grid. Without Array.from() it creates
