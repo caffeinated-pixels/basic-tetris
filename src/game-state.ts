@@ -1,4 +1,22 @@
-const initialState = {
+interface gameState {
+  timerId: number | null
+  squaresRemoved: Element[] | null
+  squares: Element[] | null
+  hiscore: number
+  score: number
+  level: number
+  lines: number
+  linesLevel: number
+  isGameOver: boolean
+  isGamePaused: boolean
+  currentPosition: number
+  currentRotation: number
+  currentTetromino: number[] | null
+  tetrominoIndex: number | null
+  nextTetrominoIndex: number | null
+}
+
+const initialState: gameState = {
   timerId: null, // for stopping the timer
   squaresRemoved: null, // for storing cleared lines/rows
   squares: Array.from(document.querySelectorAll('.grid div')),
@@ -19,6 +37,6 @@ const initialState = {
 /* sqaure creates an array of the 190 divs from .grid. Without Array.from() it creates
 a NodeList array that doesn't allow us to splice cleared lines */
 
-export const gameState = {
+export const gameState: gameState = {
   ...initialState,
 }
