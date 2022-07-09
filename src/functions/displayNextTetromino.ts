@@ -22,6 +22,7 @@ export const displayNextTetromino = () => {
     square.classList.remove('tetromino') // clears the mini-grid
     square.style.backgroundColor = '' // remove color
   })
+
   UP_NEXT_TETROMINOS[gameState.nextTetrominoIndex].forEach((index) => {
     // draws next tetromino
     nextTetrominoDisplay[DISPLAY_INDEX + index].classList.add('tetromino')
