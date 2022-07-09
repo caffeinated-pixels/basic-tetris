@@ -1,4 +1,4 @@
-import { GAME_TIMINGS, WIDTH } from './constants/'
+import { GAME_TIMINGS } from './constants/'
 import { gameState } from './game-state'
 
 import {
@@ -12,84 +12,17 @@ import {
 import {
   displayNextTetromino,
   drawTetromino,
-  isAtLeftEdge,
-  isAtRightEdge,
   preventScrolling,
   rng,
   setFirstTetromino,
-  undrawTetromino,
-  rotateTetromino,
-  stopTetromino,
+  arrowKeyControls,
+  moveDown,
 } from './functions/'
 
 setFirstTetromino(gameState)
 
-// ASSIGN FUNCTIONS TO KEYCODES
-// we control the tertrominos with the arrow keys
-function control(e) {
-  if (!gameState.isGameOver && !gameState.isGamePaused) {
-    // won't excute if game is over or paused
-    if (e.key === 'ArrowLeft') moveLeft()
-    else if (e.key === 'ArrowUp') rotateTetromino() // ArrowUp, obviously!
-    else if (e.key === 'ArrowRight') moveRight()
-    else if (e.key === 'ArrowDown') {
-      gameState.score += 1 // softdrop score, 1pt per row
-      scoreDisplay.textContent = gameState.score // update html score display
-      moveDown()
-    }
-  }
-}
-document.addEventListener('keydown', control)
+document.addEventListener('keydown', arrowKeyControls)
 window.addEventListener('keydown', preventScrolling)
-
-// MOVE DOWN FUNCTION
-function moveDown() {
-  undrawTetromino() // remove squares
-  gameState.currentPosition += WIDTH // move down 1 row
-  drawTetromino() // redraw squares in new positions
-  stopTetromino() // checks what's below the tetromino
-}
-
-// MOVE LEFT FUNCTION
-/* won't move left if at grid edge or there is a blockage (.taken);
-modulus calc will only eval to 0 if in grid position 0, 10, 20, 30, etc */
-function moveLeft() {
-  undrawTetromino() // remove the squares
-  if (!isAtLeftEdge()) gameState.currentPosition -= 1 // moves tetromino 1 column to the left
-
-  // checks if any grid divs have the class .taken; ie whether it bumps into another tetromino
-  if (
-    gameState.currentTetromino.some((index) =>
-      gameState.squares[gameState.currentPosition + index].classList.contains(
-        'taken'
-      )
-    )
-  ) {
-    gameState.currentPosition += 1 // moves tetromino back 1 to the right
-  }
-
-  drawTetromino() // redraw tetromino in new position
-}
-
-// MOVE RIGHT FUNCTION
-/* won't move right if at edge or there is a blockage (.taken);
-modulus calc will only eval to 9 (ie 10-1=9) if in grid position 9, 19, 29, 39, etc */
-function moveRight() {
-  undrawTetromino() // remove the squares
-  if (!isAtRightEdge()) gameState.currentPosition += 1 // moves tetromino 1 column to the right
-
-  if (
-    gameState.currentTetromino.some((index) =>
-      gameState.squares[gameState.currentPosition + index].classList.contains(
-        'taken'
-      )
-    )
-  ) {
-    gameState.currentPosition -= 1 // moves tetromino back 1 to the left
-  }
-
-  drawTetromino()
-}
 
 // START/PAUSE BTN FUNCTIONALITY
 startBtn.addEventListener('click', () => {
