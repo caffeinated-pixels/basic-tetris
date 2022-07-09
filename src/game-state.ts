@@ -1,7 +1,7 @@
 interface gameState {
   timerId: number | null
-  squaresRemoved: Element[] | null
-  squares: Element[] | null
+  squaresRemoved: HTMLElement[] | null
+  squares: HTMLElement[]
   hiscore: number
   score: number
   level: number
