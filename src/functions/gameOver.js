@@ -1,6 +1,18 @@
 import { gameState } from '../game-state'
 import { grid, hiscoreDisplay } from '../dom/elements'
 
+const displayGameOverMessage = () => {
+  const gameOverDiv = document.createElement('div')
+  gameOverDiv.classList.add('text-center', 'game-over')
+  const gameOverText = document.createElement('p')
+  gameOverText.textContent = 'GAME OVER!'
+  gameOverDiv.appendChild(gameOverText)
+  const tryAgainText = document.createElement('p')
+  tryAgainText.textContent = 'PLEASE TRY AGAIN \u2764'
+  gameOverDiv.appendChild(tryAgainText)
+  grid.replaceChildren(gameOverDiv)
+}
+
 /* GAME OVER CONDITION
 checks if any of the squares in the tetromino starting position are taken */
 export const gameOver = () => {
@@ -24,16 +36,7 @@ export const gameOver = () => {
 
     grid.style.backgroundColor = '#b59aef' // game over background-color
 
-    // TODO: move game over message to its own function
-    const gameOverDiv = document.createElement('div')
-    gameOverDiv.classList.add('text-center', 'game-over')
-    const gameOverText = document.createElement('p')
-    gameOverText.textContent = 'GAME OVER!'
-    gameOverDiv.appendChild(gameOverText)
-    const tryAgainText = document.createElement('p')
-    tryAgainText.textContent = 'PLEASE TRY AGAIN \u2764'
-    gameOverDiv.appendChild(tryAgainText)
-    grid.replaceChildren(gameOverDiv)
+    displayGameOverMessage()
 
     if (gameState.score > gameState.hiscore) {
       // updates hi score
