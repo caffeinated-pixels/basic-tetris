@@ -1,5 +1,5 @@
 export interface GameState {
-  timerId: number | null
+  timerId: number | undefined
   squaresRemoved: HTMLElement[] | null
   squares: HTMLElement[]
   hiscore: number

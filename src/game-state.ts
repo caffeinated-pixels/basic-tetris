@@ -8,7 +8,7 @@ const initializeState = (): GameState => {
   const currentTetromino = TETROMINOS[tetrominoIndex][0]
 
   return {
-    timerId: null, // for stopping the timer
+    timerId: undefined, // for stopping the timer
     squaresRemoved: null, // for storing cleared lines/rows
     squares: Array.from(document.querySelectorAll('.grid div')),
     hiscore: 0, // for hiscore html display
