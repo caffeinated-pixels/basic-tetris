@@ -11,7 +11,7 @@ export interface GameState {
   isGamePaused: boolean
   currentPosition: number
   currentRotation: number
-  currentTetromino: number[] | null
+  currentTetromino: number[]
   tetrominoIndex: number
   nextTetrominoIndex: number
 }
