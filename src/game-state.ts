@@ -1,24 +1,7 @@
 import { rng } from './functions/'
+import type { GameState } from './types'
 
-interface gameState {
-  timerId: number | null
-  squaresRemoved: HTMLElement[] | null
-  squares: HTMLElement[]
-  hiscore: number
-  score: number
-  level: number
-  lines: number
-  linesLevel: number
-  isGameOver: boolean
-  isGamePaused: boolean
-  currentPosition: number
-  currentRotation: number
-  currentTetromino: number[] | null
-  tetrominoIndex: number
-  nextTetrominoIndex: number
-}
-
-const initialState: gameState = {
+const initialState: GameState = {
   timerId: null, // for stopping the timer
   squaresRemoved: null, // for storing cleared lines/rows
   squares: Array.from(document.querySelectorAll('.grid div')),
@@ -39,6 +22,6 @@ const initialState: gameState = {
 /* sqaure creates an array of the 190 divs from .grid. Without Array.from() it creates
 a NodeList array that doesn't allow us to splice cleared lines */
 
-export const gameState: gameState = {
+export const gameState: GameState = {
   ...initialState,
 }
