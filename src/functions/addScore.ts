@@ -4,7 +4,7 @@ import { gameState } from '../game-state'
 
 /* it checks every row of the grid for completed lines; these are then removed and
 added back to the top of the grid. We also remove the .taken and .tetromino classes */
-export const addScore = () => {
+export const addScore = (): void => {
   let lineCount = 0
   for (let i = 0; i < 179; i += WIDTH) {
     const row = [
@@ -29,7 +29,7 @@ export const addScore = () => {
       gameState.linesLevel += 1 // adds 1 to the global number of lines
 
       gameState.lines += 1 // for html display
-      linesDisplay.textContent = gameState.lines // update display
+      linesDisplay.textContent = `${gameState.lines}` // update display
 
       row.forEach((index) => {
         gameState.squares[index].classList.remove('taken', 'tetromino') // clears the lines by removing classes
@@ -39,7 +39,7 @@ export const addScore = () => {
 
       gameState.squares.unshift(...gameState.squaresRemoved) // adds gameState.squaresRemoved to the top of the grid/array
 
-      grid.replaceChildren(...gameState.squares) // replaces grid divs using squares array
+      grid?.replaceChildren(...gameState.squares) // replaces grid divs using squares array
     }
   }
 
@@ -48,12 +48,12 @@ export const addScore = () => {
   if (lineCount === 2) gameState.score += 100 * (gameState.level + 1)
   if (lineCount === 3) gameState.score += 300 * (gameState.level + 1)
   if (lineCount === 4) gameState.score += 1200 * (gameState.level + 1)
-  scoreDisplay.textContent = gameState.score
+  scoreDisplay.textContent = `${gameState.score}`
 
   // level increment
   if (gameState.linesLevel >= 10 && gameState.level < 20) {
     gameState.level += 1 // increments global variable
     gameState.linesLevel -= 10 // resets global variable & carries over extra lines
   }
-  levelDisplay.textContent = gameState.level // updates html display
+  levelDisplay.textContent = `${gameState.level}` // updates html display
 }

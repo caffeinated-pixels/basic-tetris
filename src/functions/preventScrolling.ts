@@ -1,4 +1,4 @@
-export const preventScrolling = (e) => {
+export const preventScrolling = (e: KeyboardEvent): void => {
   const keyInputs = ['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', ' ']
   const isArrowKeyorSpacebar = keyInputs.indexOf(e.key) > -1
   if (isArrowKeyorSpacebar) e.preventDefault()

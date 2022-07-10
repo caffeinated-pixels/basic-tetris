@@ -16,12 +16,13 @@ export const UP_NEXT_TETROMINOS = [
   [1, UP_NEXT_WIDTH + 1, UP_NEXT_WIDTH * 2 + 1, UP_NEXT_WIDTH * 3 + 1], // iTetromino
 ]
 
-export const displayNextTetromino = () => {
+export const displayNextTetromino = (): void => {
   // displays next tetromino in the mini-grid
   nextTetrominoDisplay.forEach((square) => {
     square.classList.remove('tetromino') // clears the mini-grid
     square.style.backgroundColor = '' // remove color
   })
+
   UP_NEXT_TETROMINOS[gameState.nextTetrominoIndex].forEach((index) => {
     // draws next tetromino
     nextTetrominoDisplay[DISPLAY_INDEX + index].classList.add('tetromino')

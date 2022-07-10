@@ -2,14 +2,7 @@ import { gameState } from './game-state'
 
 import { startBtn } from './dom/elements'
 
-import {
-  arrowKeyControls,
-  preventScrolling,
-  setFirstTetromino,
-  startStopGame,
-} from './functions/'
-
-setFirstTetromino(gameState)
+import { arrowKeyControls, preventScrolling, startStopGame } from './functions/'
 
 document.addEventListener('keydown', arrowKeyControls)
 window.addEventListener('keydown', preventScrolling)
