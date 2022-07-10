@@ -63,7 +63,7 @@ export const arrowKeyControls = (e) => {
     else if (e.key === 'ArrowRight') moveRight()
     else if (e.key === 'ArrowDown') {
       gameState.score += 1 // softdrop score, 1pt per row
-      scoreDisplay.textContent = gameState.score // update html score display
+      scoreDisplay.textContent = `${gameState.score}` // update html score display
       moveDown()
     }
   }
