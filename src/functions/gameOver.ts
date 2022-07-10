@@ -44,7 +44,7 @@ export const gameOver = () => {
       gameState.hiscore = gameState.score * 1
     }
 
-    hiscoreDisplay.textContent = gameState.hiscore // changes score display
+    hiscoreDisplay.textContent = `${gameState.hiscore}` // changes score display
     clearInterval(gameState.timerId) // clears timer interval for moveDown
   }
 }
