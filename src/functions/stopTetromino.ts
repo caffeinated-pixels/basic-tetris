@@ -9,7 +9,7 @@ import {
 } from './'
 
 // checks for "taken" squares below the current tetromino
-export const stopTetromino = () => {
+export const stopTetromino = (): void => {
   if (
     gameState.currentTetromino.some((index) =>
       gameState.squares[

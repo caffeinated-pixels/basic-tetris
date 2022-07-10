@@ -22,7 +22,7 @@ const checkRotatedPosition = (pos?: number): void => {
   }
 }
 
-export const rotateTetromino = () => {
+export const rotateTetromino = (): void => {
   // can cause t,l,j,i to go through wall at edge (see above)
   undrawTetromino()
   gameState.currentRotation++

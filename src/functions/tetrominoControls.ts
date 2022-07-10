@@ -38,7 +38,7 @@ const moveLeft = () => {
 }
 /* won't move right if at edge or there is a blockage (.taken);
 modulus calc will only eval to 9 (ie 10-1=9) if in grid position 9, 19, 29, 39, etc */
-const moveRight = () => {
+const moveRight = (): void => {
   undrawTetromino() // remove the squares
   if (!isAtRightEdge()) gameState.currentPosition += 1 // moves tetromino 1 column to the right
 
@@ -55,7 +55,7 @@ const moveRight = () => {
   drawTetromino()
 }
 
-export const arrowKeyControls = (e: KeyboardEvent) => {
+export const arrowKeyControls = (e: KeyboardEvent): void => {
   if (!gameState.isGameOver && !gameState.isGamePaused) {
     // won't excute if game is over or paused
     if (e.key === 'ArrowLeft') moveLeft()

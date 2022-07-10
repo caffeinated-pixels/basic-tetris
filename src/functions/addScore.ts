@@ -4,7 +4,7 @@ import { gameState } from '../game-state'
 
 /* it checks every row of the grid for completed lines; these are then removed and
 added back to the top of the grid. We also remove the .taken and .tetromino classes */
-export const addScore = () => {
+export const addScore = (): void => {
   let lineCount = 0
   for (let i = 0; i < 179; i += WIDTH) {
     const row = [

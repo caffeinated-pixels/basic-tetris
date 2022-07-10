@@ -3,7 +3,8 @@ import { GAME_TIMINGS } from '../constants'
 import { scoreDisplay, levelDisplay, linesDisplay, grid } from '../dom/elements'
 import { displayNextTetromino, drawTetromino, rng, moveDown } from './'
 
-export const startStopGame = () => {
+// TODO: refactor into smaller functions
+export const startStopGame = (): void => {
   if (gameState.isGameOver) {
     // reset values if game over, man!
     gameState.score = 0

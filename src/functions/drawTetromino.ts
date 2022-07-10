@@ -2,7 +2,7 @@ import { gameState } from '../game-state'
 import { COLORS } from '../constants'
 
 // we "draw" the shapes by colouring in the corresponding grid divs with CSS styling
-export const drawTetromino = () => {
+export const drawTetromino = (): void => {
   gameState.currentTetromino?.forEach((index) => {
     gameState.squares[gameState.currentPosition + index].classList.add(
       'tetromino'

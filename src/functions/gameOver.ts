@@ -16,7 +16,7 @@ const displayGameOverMessage = () => {
 // TODO: clear nextTetrominoDisplay when game is over
 /* GAME OVER CONDITION
 checks if any of the squares in the tetromino starting position are taken */
-export const gameOver = () => {
+export const gameOver = (): void => {
   if (
     gameState.currentTetromino.some((index) =>
       gameState.squares[gameState.currentPosition + index].classList.contains(
