@@ -3,7 +3,7 @@ import { WIDTH, TETROMINOS } from '../constants'
 import { isAtLeftEdge, isAtRightEdge, undrawTetromino, drawTetromino } from './'
 
 // prevents t,l,j,i tetrominos rotating through the edge onto the other side of the grid!!!
-const checkRotatedPosition = (pos) => {
+const checkRotatedPosition = (pos?: number): void => {
   pos = pos || gameState.currentPosition // gets current pos then checks if the piece is near the left side
   if ((pos + 1) % WIDTH < 4) {
     // +1 to compensate for possible difference between squares & pos
