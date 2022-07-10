@@ -1,3 +1,5 @@
+import { rng } from './functions/'
+
 interface gameState {
   timerId: number | null
   squaresRemoved: HTMLElement[] | null
@@ -30,8 +32,8 @@ const initialState: gameState = {
   currentPosition: 4, // staring position of tetromino
   currentRotation: 0, // starting rotation of tetromino
   currentTetromino: null, // store tetromino in current rotation
-  tetrominoIndex: 0, // store current tetromino index
-  nextTetrominoIndex: 0, // store next tetromino index
+  tetrominoIndex: rng(), // store current tetromino index
+  nextTetrominoIndex: rng(), // store next tetromino index
 }
 
 /* sqaure creates an array of the 190 divs from .grid. Without Array.from() it creates
