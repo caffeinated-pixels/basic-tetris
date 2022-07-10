@@ -7,16 +7,16 @@ export const startStopGame = () => {
   if (gameState.isGameOver) {
     // reset values if game over, man!
     gameState.score = 0
-    scoreDisplay.textContent = gameState.score
+    scoreDisplay.textContent = `${gameState.score}`
     gameState.level = 0
-    levelDisplay.textContent = gameState.level
+    levelDisplay.textContent = `${gameState.level}`
     gameState.lines = 0
-    linesDisplay.textContent = gameState.lines
+    linesDisplay.textContent = `${gameState.lines}`
     gameState.linesLevel = 0
     gameState.isGameOver = false
     gameState.isGamePaused = false
 
-    grid.removeChild(grid.firstChild) // remove game over message
+    if (grid.firstChild) grid.removeChild(grid.firstChild) // remove game over message
     gameState.squares.forEach((cell) => grid.appendChild(cell)) // redraws grid
     grid.style.backgroundColor = '#ffd37b' // resets background color
     for (let i = 0; i < 180; i++) {
@@ -33,12 +33,12 @@ export const startStopGame = () => {
     if (gameState.timerId) {
       // if gameState.timerId truthy, ie not undefined/null
       clearInterval(gameState.timerId) // pauses game
-      gameState.timerId = null
+      gameState.timerId = undefined
       gameState.isGamePaused = true
       scoreDisplay.textContent = 'paused'
     } else {
       gameState.isGamePaused = false
-      scoreDisplay.textContent = gameState.score
+      scoreDisplay.textContent = `${gameState.score}`
       drawTetromino()
       gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level]) // unpauses game
       displayNextTetromino()
