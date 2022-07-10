@@ -55,7 +55,7 @@ const moveRight = () => {
   drawTetromino()
 }
 
-export const arrowKeyControls = (e) => {
+export const arrowKeyControls = (e: KeyboardEvent) => {
   if (!gameState.isGameOver && !gameState.isGamePaused) {
     // won't excute if game is over or paused
     if (e.key === 'ArrowLeft') moveLeft()
