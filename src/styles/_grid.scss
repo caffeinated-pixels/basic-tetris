@@ -1,4 +1,4 @@
-.container {
+.game-container {
   width: 1000px;
   display: flex;
   justify-content: center;
@@ -6,13 +6,13 @@
   padding-top: 25px;
 }
 
-.grid-border {
+.game-grid-border {
   border: 12px solid black;
   border-radius: 5px;
   box-shadow: 4px 4px 4px #aaa;
 }
 
-.grid {
+.game-grid {
   width: 400px;
   height: 720px;
   display: flex;
@@ -20,7 +20,7 @@
   background-color: #ffd37b;
 }
 
-.grid div {
+.game-grid div {
   height: 40px;
   width: 40px;
   /* border: 0.5px solid gray; */
@@ -34,13 +34,13 @@
   border: 2px solid black;
 }
 
-.sidebox {
+.info-panel-container {
   width: 250px;
   height: 500px;
   margin-left: 50px;
 }
 
-.mini-container {
+.nextup-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,7 +53,7 @@
   box-shadow: 4px 4px 4px #aaa;
 }
 
-.mini-grid {
+.nextup-grid {
   margin: auto;
   width: 160px;
   height: 160px;
@@ -61,7 +61,7 @@
   flex-wrap: wrap;
 }
 
-.mini-grid div {
+.nextup-grid div {
   height: 40px;
   width: 40px;
 }

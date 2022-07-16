@@ -10,7 +10,7 @@ const initializeState = (): GameState => {
   return {
     timerId: undefined, // for stopping the timer
     squaresRemoved: null, // for storing cleared lines/rows
-    squares: Array.from(document.querySelectorAll('.grid div')),
+    squares: Array.from(document.querySelectorAll('.game-grid div')),
     hiscore: 0, // for hiscore html display
     score: 0, // for score html display
     level: 0, // for level html display
