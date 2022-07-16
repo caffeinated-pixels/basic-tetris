@@ -1,0 +1,101 @@
+.container {
+  width: 1000px;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding-top: 25px;
+}
+
+.grid-border {
+  border: 12px solid black;
+  border-radius: 5px;
+  box-shadow: 4px 4px 4px #aaa;
+}
+
+.grid {
+  width: 400px;
+  height: 720px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #ffd37b;
+}
+
+.grid div {
+  height: 40px;
+  width: 40px;
+  /* border: 0.5px solid gray; */
+}
+
+.hidden {
+  display: none; /* removes invisible bottow row from html */
+}
+
+.tetromino {
+  border: 2px solid black;
+}
+
+.sidebox {
+  width: 250px;
+  height: 500px;
+  margin-left: 50px;
+}
+
+.mini-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  margin: 25px auto;
+  background-color: white;
+  border: 8px solid black;
+  border-radius: 5px;
+  box-shadow: 4px 4px 4px #aaa;
+}
+
+.mini-grid {
+  margin: auto;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mini-grid div {
+  height: 40px;
+  width: 40px;
+}
+
+.info {
+  margin-bottom: 15px;
+  /* padding: 0 20px; */
+  background-color: white;
+  background-color: rgba(255, 255, 255, 0.85);
+  /* border-radius: 5px; */
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+button {
+  background-color: #3399ff;
+  color: white;
+  cursor: pointer;
+  width: 75%;
+  border-radius: 8px;
+  padding: 7.5px 0;
+  font-family: inherit;
+}
+
+.instructions {
+  font-size: 0.7rem;
+}
+
+.game-over {
+  flex-basis: 400px;
+  align-self: center;
+}
