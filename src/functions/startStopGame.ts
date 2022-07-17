@@ -17,13 +17,11 @@ export const startStopGame = (): void => {
     gameState.isGameOver = false
     gameState.isGamePaused = false
 
-    if (grid.firstChild) grid.removeChild(grid.firstChild) // remove game over message
-    gameState.squares.forEach((cell) => grid.appendChild(cell)) // redraws grid
+    const gameOverDiv = document.getElementById('game-over')
+
+    if (gameOverDiv) grid.removeChild(gameOverDiv) // remove game over message
+
     grid.style.backgroundColor = '#ffd37b' // resets background color
-    for (let i = 0; i < 180; i++) {
-      // reset grid squares color
-      gameState.squares[i].style.backgroundColor = ''
-    }
 
     drawTetromino() // restarts game
     gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level])

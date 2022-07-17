@@ -10,6 +10,7 @@
 
 // 10x18 plus row of 10 hidden squares
 .game-grid {
+  position: relative;
   box-sizing: content-box;
   border: 12px solid black;
   border-radius: 5px;
@@ -22,7 +23,7 @@
   background-color: #ffd37b;
 }
 
-.game-grid div {
+.cell {
   aspect-ratio: 1; // makes sure cells are square
   // outline: 1px solid gray;
 }
@@ -95,6 +96,10 @@ button {
 }
 
 .game-over {
-  flex-basis: 400px;
-  align-self: center;
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

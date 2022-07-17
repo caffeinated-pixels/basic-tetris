@@ -36,10 +36,6 @@ export const gameOver = (): void => {
       gameState.squares[i].removeAttribute('style')
     }
 
-    // while (grid.firstChild) {
-    //   grid.removeChild(grid.firstChild) // removes all grid divs from HTML document
-    // }
-
     grid.style.backgroundColor = '#b59aef' // game over background-color
 
     displayGameOverMessage()
