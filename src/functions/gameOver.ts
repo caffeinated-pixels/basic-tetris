@@ -4,6 +4,7 @@ import { grid, hiscoreDisplay } from '../dom/elements'
 const displayGameOverMessage = () => {
   const gameOverDiv = document.createElement('div')
   gameOverDiv.classList.add('text-center', 'game-over')
+  gameOverDiv.id = 'game-over'
 
   const gameOverText = document.createElement('p')
   gameOverText.textContent = 'GAME OVER!'
@@ -13,7 +14,7 @@ const displayGameOverMessage = () => {
   tryAgainText.textContent = 'PLEASE TRY AGAIN \u2764'
 
   gameOverDiv.appendChild(tryAgainText)
-  grid.replaceChildren(gameOverDiv)
+  grid.appendChild(gameOverDiv)
 }
 
 // TODO: clear nextTetrominoDisplay when game is over
@@ -31,7 +32,7 @@ export const gameOver = (): void => {
 
     for (let i = 0; i < 180; i++) {
       // clean up the grid
-      gameState.squares[i].removeAttribute('class')
+      gameState.squares[i].classList.remove('taken', 'tetromino')
       gameState.squares[i].removeAttribute('style')
     }
 
