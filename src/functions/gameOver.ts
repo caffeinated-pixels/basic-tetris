@@ -1,21 +1,5 @@
 import { gameState } from '../game-state'
-import { grid, hiscoreDisplay } from '../dom/elements'
-
-const displayGameOverMessage = () => {
-  const gameOverDiv = document.createElement('div')
-  gameOverDiv.classList.add('text-center', 'game-over')
-  gameOverDiv.id = 'game-over'
-
-  const gameOverText = document.createElement('p')
-  gameOverText.textContent = 'GAME OVER!'
-  gameOverDiv.appendChild(gameOverText)
-
-  const tryAgainText = document.createElement('p')
-  tryAgainText.textContent = 'PLEASE TRY AGAIN \u2764'
-
-  gameOverDiv.appendChild(tryAgainText)
-  grid.appendChild(gameOverDiv)
-}
+import { grid, hiscoreDisplay, gameOverMessage } from '../dom/elements'
 
 // TODO: clear nextTetrominoDisplay when game is over
 /* GAME OVER CONDITION
@@ -38,7 +22,7 @@ export const gameOver = (): void => {
 
     grid.style.backgroundColor = '#b59aef' // game over background-color
 
-    displayGameOverMessage()
+    gameOverMessage.style.display = 'flex' // show game over message
 
     if (gameState.score > gameState.hiscore) {
       // updates hi score
