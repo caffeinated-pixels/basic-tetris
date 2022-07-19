@@ -91,10 +91,6 @@ button {
   font-size: 0.7rem;
 }
 
-.instructions {
-  font-size: 0.7rem;
-}
-
 .game-over {
   position: absolute;
   inset: 0;
@@ -102,4 +98,20 @@ button {
   display: none;
   flex-direction: column;
   justify-content: center;
+}
+
+.instructions {
+  @extend .game-over;
+  // display: flex;
+  font-size: 0.9rem;
+  padding: 0.75em;
+}
+
+.instructions h2 {
+  margin-top: 5em;
+}
+
+.instructions p {
+  margin-bottom: 0.55em;
+  text-align: center;
 }
