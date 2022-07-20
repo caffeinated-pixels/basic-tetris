@@ -1,5 +1,3 @@
-import { gameState } from './game-state'
-
 import { startBtn, infoBtn, musicBtn } from './dom/elements'
 
 import {
