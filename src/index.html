@@ -11,6 +11,10 @@
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Vollkorn:wght@900&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/4947e996a3.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="icon" type="image/png" href="./images/favicon.png" />
     <title>Tetris</title>
   </head>
@@ -313,8 +317,24 @@
             <!-- cleared lines -->
           </div>
 
-          <div class="button">
-            <button id="start-button">Start/Pause</button>
+          <div class="game-buttons">
+            <button
+              id="start-button"
+              class="start-button"
+              aria-label="start/pause game"
+            >
+              <i class="fas fa-play"></i>
+            </button>
+            <button id="info-button" class="info-button" aria-label="game info">
+              <i class="fas fa-info"></i>
+            </button>
+            <button
+              id="music-button"
+              class="music-button"
+              aria-label="start/stop music"
+            >
+              <i class="fas fa-music"></i>
+            </button>
           </div>
         </div>
       </div>
