@@ -24,7 +24,6 @@ export const startStopGame = (): void => {
     gameState.isGamePaused = false
 
     gameOverMessage.style.display = 'none' // hides game over message
-    grid.style.backgroundColor = '#ffd37b' // resets background color
 
     drawTetromino() // restarts game
     gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level])

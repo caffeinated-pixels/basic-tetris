@@ -20,8 +20,6 @@ export const gameOver = (): void => {
       gameState.squares[i].removeAttribute('style')
     }
 
-    grid.style.backgroundColor = '#b59aef' // game over background-color
-
     gameOverMessage.style.display = 'flex' // show game over message
 
     if (gameState.score > gameState.hiscore) {
