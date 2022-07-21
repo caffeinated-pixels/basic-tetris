@@ -8,6 +8,6 @@
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
+    "module": "esnext" // needed for import.meta.url to work with TypeScript
   }
 }
