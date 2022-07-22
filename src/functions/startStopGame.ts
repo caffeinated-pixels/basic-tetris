@@ -4,13 +4,15 @@ import {
   scoreDisplay,
   levelDisplay,
   linesDisplay,
-  grid,
   gameOverMessage,
+  instructionsDisplay,
 } from '../dom/elements'
 import { displayNextTetromino, drawTetromino, rng, moveDown } from './'
 
 // TODO: refactor into smaller functions
 export const startStopGame = (): void => {
+  instructionsDisplay.style.display = 'none'
+
   if (gameState.isGameOver) {
     // reset values if game over, man!
     gameState.score = 0
