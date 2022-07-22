@@ -4,12 +4,12 @@ import {
   arrowKeyControls,
   preventScrolling,
   startStopGame,
-  displayInfo,
+  displayInstructions,
   playMusic,
 } from './functions/'
 
 document.addEventListener('keydown', arrowKeyControls)
 window.addEventListener('keydown', preventScrolling)
 startBtn.addEventListener('click', startStopGame)
-infoBtn.addEventListener('click', displayInfo)
+infoBtn.addEventListener('click', displayInstructions)
 musicBtn.addEventListener('click', playMusic)
