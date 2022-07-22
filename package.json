@@ -28,8 +28,8 @@
     "eslint-config-standard": "^17.0.0"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.6.2",
+    "@parcel/transformer-sass": "2.6.0",
     "eslint": "^8.18.0",
-    "parcel": "^2.6.2"
+    "parcel": "2.6.0"
   }
 }
