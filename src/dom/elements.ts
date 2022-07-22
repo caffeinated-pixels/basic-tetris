@@ -8,6 +8,8 @@ export const infoBtn: HTMLElement = document.querySelector('#info-button')!
 export const musicBtn: HTMLElement = document.querySelector('#music-button')!
 export const gameOverMessage: HTMLElement =
   document.querySelector('#game-over')!
+export const instructionsDisplay: HTMLElement =
+  document.querySelector('#instructions')!
 export const nextTetrominoDisplay: NodeListOf<HTMLElement> =
   document.querySelectorAll('.nextup-grid div')!
 // creates an array of the 16 divs in the mini-grid
