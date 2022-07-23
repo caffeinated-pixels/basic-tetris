@@ -14,3 +14,13 @@ html {
 body {
   background-image: url(../images/background-checks-75pc.png);
 }
+
+.game-container {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding-top: 25px;
+  // outline: 1px solid red;
+}
