@@ -10,7 +10,12 @@ import {
   rotateTetromino,
 } from './'
 
-export const moveDown = () => {
+export const moveDown = (hasUserInitiated?: boolean) => {
+  if (hasUserInitiated) {
+    gameState.score += 1 // softdrop score, 1pt per row
+    scoreDisplay.textContent = `${gameState.score}` // update html score display
+  }
+
   undrawTetromino() // remove squares
   gameState.currentPosition += WIDTH // move down 1 row
   drawTetromino() // redraw squares in new positions
@@ -61,10 +66,18 @@ export const arrowKeyControls = (e: KeyboardEvent): void => {
     if (e.key === 'ArrowLeft') moveLeft()
     else if (e.key === 'ArrowUp') rotateTetromino() // ArrowUp, obviously!
     else if (e.key === 'ArrowRight') moveRight()
-    else if (e.key === 'ArrowDown') {
-      gameState.score += 1 // softdrop score, 1pt per row
-      scoreDisplay.textContent = `${gameState.score}` // update html score display
-      moveDown()
-    }
+    else if (e.key === 'ArrowDown') moveDown(true)
+  }
+}
+
+export const dpadControls = (e: MouseEvent): void => {
+  const target = e.target as HTMLElement // event objects can be other types, so we need an assertion
+
+  if (!gameState.isGameOver && !gameState.isGamePaused) {
+    // won't excute if game is over or paused
+    if (target.dataset.id === 'left') moveLeft()
+    else if (target.dataset.id === 'up') rotateTetromino()
+    else if (target.dataset.id === 'right') moveRight()
+    else if (target.dataset.id === 'down') moveDown(true)
   }
 }
