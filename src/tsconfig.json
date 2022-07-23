@@ -10,8 +10,8 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     // needed for import.meta.url to work with TypeScript
-    "target": "ES2020",
-    "module": "ES2020",
+    "target": "ESNEXT",
+    "module": "ESNEXT",
     "moduleResolution": "node"
   }
 }
