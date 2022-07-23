@@ -48,7 +48,9 @@
   gap: 1em;
 }
 
-button {
+.start-button,
+.info-button,
+.music-button {
   background-color: #3399ff;
   color: white;
   cursor: pointer;
