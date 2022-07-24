@@ -47,9 +47,7 @@
   gap: 1em;
 }
 
-.start-button,
-.info-button,
-.music-button {
+.game-button {
   background-color: #3399ff;
   color: white;
   cursor: pointer;
@@ -59,4 +57,12 @@
   line-height: 1;
   padding: 0;
   font-size: 0.7rem;
+  border: 0;
+  box-shadow: 2px 2px 4px black;
+
+  &:hover,
+  &:focus {
+    border: 2px solid orange;
+    outline-style: none;
+  }
 }
