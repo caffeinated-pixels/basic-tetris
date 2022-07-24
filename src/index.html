@@ -262,12 +262,10 @@
       </div>
 
       <div class="side-panel-container">
-        <div class="info-display">
-          <div class="info">
-            <p class="text-center">Hi Score</p>
-            <p id="hiscore" class="text-right">0</p>
-            <!-- hi score -->
-          </div>
+        <div class="info">
+          <p class="text-center">Hi Score</p>
+          <p id="hiscore" class="text-right">0</p>
+          <!-- hi score -->
         </div>
 
         <!-- 4x4 mini-grid for displaying the next tertromino -->
@@ -292,86 +290,84 @@
           </div>
         </div>
 
-        <div class="info-display">
-          <div class="info">
-            <p class="text-center">Score</p>
-            <p id="score" class="text-right">0</p>
-            <!-- tetris score -->
-          </div>
+        <div class="info">
+          <p class="text-center">Score</p>
+          <p id="score" class="text-right">0</p>
+          <!-- tetris score -->
+        </div>
 
-          <div class="info">
-            <p class="text-center">Level</p>
-            <p id="level" class="text-right">0</p>
-            <!-- tetris level -->
-          </div>
+        <div class="info">
+          <p class="text-center">Level</p>
+          <p id="level" class="text-right">0</p>
+          <!-- tetris level -->
+        </div>
 
-          <div class="info">
-            <p class="text-center">Lines</p>
-            <p id="lines" class="text-right">0</p>
-            <!-- cleared lines -->
-          </div>
+        <div class="info">
+          <p class="text-center">Lines</p>
+          <p id="lines" class="text-right">0</p>
+          <!-- cleared lines -->
+        </div>
 
-          <div class="game-buttons">
+        <div class="game-buttons">
+          <button
+            id="start-button"
+            class="start-button"
+            aria-label="start/pause game"
+          >
+            <i class="fas fa-play"></i>
+          </button>
+          <button id="info-button" class="info-button" aria-label="game info">
+            <i class="fas fa-info"></i>
+          </button>
+          <button
+            id="music-button"
+            class="music-button"
+            aria-label="start/stop music"
+          >
+            <i class="fas fa-music"></i>
+          </button>
+        </div>
+
+        <div id="d-pad" class="d-pad-container">
+          <div class="btn-row1">
             <button
-              id="start-button"
-              class="start-button"
-              aria-label="start/pause game"
+              id="up"
+              class="d-btn"
+              aria-label="rotate tertromino"
+              data-id="up"
             >
-              <i class="fas fa-play"></i>
-            </button>
-            <button id="info-button" class="info-button" aria-label="game info">
-              <i class="fas fa-info"></i>
-            </button>
-            <button
-              id="music-button"
-              class="music-button"
-              aria-label="start/stop music"
-            >
-              <i class="fas fa-music"></i>
+              <i class="fas fa-arrow-up" data-id="up"></i>
             </button>
           </div>
 
-          <div id="d-pad" class="d-pad-container">
-            <div class="btn-row1">
-              <button
-                id="up"
-                class="d-btn"
-                aria-label="rotate tertromino"
-                data-id="up"
-              >
-                <i class="fas fa-arrow-up" data-id="up"></i>
-              </button>
-            </div>
+          <div class="btn-row2">
+            <button
+              id="left"
+              class="d-btn"
+              aria-label="move tertromino left"
+              data-id="left"
+            >
+              <i class="fas fa-arrow-left" data-id="left"></i>
+            </button>
+            <button
+              id="right"
+              class="d-btn"
+              aria-label="move tertromino right"
+              data-id="right"
+            >
+              <i class="fas fa-arrow-right" data-id="right"></i>
+            </button>
+          </div>
 
-            <div class="btn-row2">
-              <button
-                id="left"
-                class="d-btn"
-                aria-label="move tertromino left"
-                data-id="left"
-              >
-                <i class="fas fa-arrow-left" data-id="left"></i>
-              </button>
-              <button
-                id="right"
-                class="d-btn"
-                aria-label="move tertromino right"
-                data-id="right"
-              >
-                <i class="fas fa-arrow-right" data-id="right"></i>
-              </button>
-            </div>
-
-            <div class="btn-row3">
-              <button
-                id="down"
-                class="d-btn"
-                aria-label="move tertromino down"
-                data-id="down"
-              >
-                <i class="fas fa-arrow-down" data-id="down"></i>
-              </button>
-            </div>
+          <div class="btn-row3">
+            <button
+              id="down"
+              class="d-btn"
+              aria-label="move tertromino down"
+              data-id="down"
+            >
+              <i class="fas fa-arrow-down" data-id="down"></i>
+            </button>
           </div>
         </div>
       </div>
