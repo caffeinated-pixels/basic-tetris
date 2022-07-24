@@ -1,3 +1,8 @@
+.d-pad-container {
+  width: 120px;
+  justify-self: center;
+}
+
 .d-btn {
   width: 40px;
   height: 40px;
@@ -24,10 +29,6 @@
     background-color: gray;
     transform: scale(0.9);
   }
-}
-
-.d-pad-container {
-  width: 120px;
 }
 
 .btn-row1,
