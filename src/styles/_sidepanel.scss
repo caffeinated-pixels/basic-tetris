@@ -17,7 +17,7 @@
   width: 80%;
   max-width: 200px;
   // height: 200px;
-  margin: 25px auto;
+  margin: 1.5em auto;
   padding: 5%;
   background-color: white;
   border: 8px solid black;
@@ -41,9 +41,13 @@
 }
 
 .info {
-  margin-bottom: 15px;
   background-color: white;
   background-color: rgba(255, 255, 255, 0.85);
+  max-height: 52px;
+
+  & + & {
+    margin-top: 1em;
+  }
 }
 
 .game-buttons {
