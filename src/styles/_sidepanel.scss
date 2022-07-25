@@ -77,7 +77,7 @@
   }
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     border: 2px solid orange;
     outline-style: none;
   }
