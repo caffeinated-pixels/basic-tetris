@@ -2,18 +2,27 @@ header {
   display: flex;
   background-color: lightblue;
   background-color: rgba(167, 207, 226, 0.85);
-  height: 100px;
+  max-height: 100px;
   justify-content: center;
   align-items: center;
 }
 
 h1 {
-  font-size: 70px;
+  font-size: 4.375rem;
   font-family: 'Vollkorn', serif;
   text-shadow: 3px 3px 1px #aaa;
+
+  @media (max-width: 800px) {
+    font-size: 2.75rem;
+    line-height: 1.2;
+  }
 }
 
 #header-img {
-  height: 90px;
+  max-height: 90px;
   margin-left: 1%;
+
+  @media (max-width: 800px) {
+    height: 45px;
+  }
 }

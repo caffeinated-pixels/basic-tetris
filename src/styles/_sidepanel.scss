@@ -1,10 +1,13 @@
 .side-panel-container {
-  width: 250px;
+  width: 35%;
+  max-width: 250px;
   // height: 500px;
-  margin-left: 50px;
-  outline: 2px solid red;
+  margin-left: clamp(0.5em, 2.5vw, 3.125em);
+  // outline: 2px solid red;
   // background-color: red;
   display: grid;
+
+  font-size: clamp(0.7rem, 2vw, 1rem);
 }
 
 .nextup-container {
@@ -20,12 +23,16 @@
   border: 8px solid black;
   border-radius: 5px;
   box-shadow: 4px 4px 4px #aaa;
+
+  @media (max-width: 600px) {
+    border-width: 6px;
+  }
 }
 
 .nextup-grid {
   margin: auto;
   display: grid;
-  grid-template-columns: repeat(4, minmax(20px, 40px));
+  grid-template-columns: repeat(4, minmax(15px, 40px));
 }
 
 .nextup-grid div {
@@ -42,9 +49,9 @@
 .game-buttons {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  gap: 1em;
+  margin-top: min(15%, 30px);
+  margin-bottom: min(15%, 30px);
+  gap: min(1em, 8%);
 }
 
 .game-button {
@@ -60,9 +67,18 @@
   border: 0;
   box-shadow: 2px 2px 4px black;
 
+  @media (max-width: 800px) {
+    width: 34px;
+    font-size: 0.6rem;
+  }
+
   &:hover,
   &:focus {
     border: 2px solid orange;
     outline-style: none;
+  }
+
+  &:active {
+    transform: scale(0.9);
   }
 }
