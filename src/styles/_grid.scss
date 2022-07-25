@@ -28,6 +28,10 @@
 
 .tetromino {
   border: 2px solid black;
+
+  @media (max-width: 800px) {
+    border-width: 1px;
+  }
 }
 
 // for styling messages that appear inside the game grid
