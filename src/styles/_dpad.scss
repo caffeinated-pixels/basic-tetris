@@ -1,17 +1,14 @@
 .d-pad-container {
   justify-self: center;
   display: grid;
-
   grid-template-areas:
     '.    up   .'
     'left . right'
     '.   down .';
-
-  outline: 2px solid red;
 }
 
 .d-btn {
-  --btn-size: 40px;
+  --btn-size: 60px;
   width: var(--btn-size);
   height: var(--btn-size);
   border: none;
@@ -21,11 +18,16 @@
 
   text-decoration: none;
   padding: 0;
-  font-size: 1rem;
+  font-size: 1.4rem;
   color: white;
 
   border-radius: 5%;
   background-color: #313130;
+
+  @media (max-width: 600px) {
+    --btn-size: 40px;
+    font-size: 1rem;
+  }
 
   &:hover,
   &:focus-visible {
