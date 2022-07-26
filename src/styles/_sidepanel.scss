@@ -59,12 +59,14 @@
 }
 
 .game-button {
+  --btn-size: 40px;
+
   background-color: #3399ff;
   color: white;
   cursor: pointer;
-  width: 40px;
-  aspect-ratio: 1;
-  border-radius: 100%;
+  width: var(--btn-size);
+  height: var(--btn-size);
+  border-radius: 50%;
   line-height: 1;
   padding: 0;
   font-size: 0.7rem;
@@ -72,7 +74,7 @@
   box-shadow: 2px 2px 4px black;
 
   @media (max-width: 800px) {
-    width: 34px;
+    --btn-size: 32px;
     font-size: 0.6rem;
   }
 

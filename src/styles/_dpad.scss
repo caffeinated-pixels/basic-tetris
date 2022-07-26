@@ -4,9 +4,10 @@
 }
 
 .d-btn {
-  width: 40px;
-  aspect-ratio: 1;
-  border: unset;
+  --btn-size: 40px;
+  width: var(--btn-size);
+  height: var(--btn-size);
+  border: none;
 
   cursor: pointer;
   box-shadow: 2px 2px 4px black;
@@ -19,10 +20,10 @@
   border-radius: 5%;
   background-color: #313130;
 
-  @media (max-width: 800px) {
-    width: 38px;
-    // font-size: 0.6rem;
-  }
+  // @media (max-width: 800px) {
+  //   --btn-size: 40px;
+  //   // font-size: 0.6rem;
+  // }
 
   &:hover,
   &:focus-visible {
