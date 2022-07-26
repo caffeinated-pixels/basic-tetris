@@ -1,6 +1,13 @@
 .d-pad-container {
-  width: 120px;
   justify-self: center;
+  display: grid;
+
+  grid-template-areas:
+    '.    up   .'
+    'left . right'
+    '.   down .';
+
+  outline: 2px solid red;
 }
 
 .d-btn {
@@ -20,11 +27,6 @@
   border-radius: 5%;
   background-color: #313130;
 
-  // @media (max-width: 800px) {
-  //   --btn-size: 40px;
-  //   // font-size: 0.6rem;
-  // }
-
   &:hover,
   &:focus-visible {
     border: 2px solid orange;
@@ -35,6 +37,22 @@
     background-color: gray;
     transform: scale(0.9);
   }
+}
+
+.up-btn {
+  grid-area: up;
+}
+
+.left-btn {
+  grid-area: left;
+}
+
+.right-btn {
+  grid-area: right;
+}
+
+.down-btn {
+  grid-area: down;
 }
 
 .btn-row1,
