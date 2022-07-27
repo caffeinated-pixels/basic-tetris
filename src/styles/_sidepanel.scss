@@ -1,13 +1,11 @@
 .side-panel-container {
   width: 35%;
   max-width: 250px;
-  // height: 500px;
-  margin-left: clamp(0.5em, 2.5vw, 3.125em);
-  // outline: 2px solid red;
-  // background-color: red;
-  display: grid;
 
-  font-size: clamp(0.7rem, 2vw, 1rem);
+  margin-left: clamp(0.25em, 2.5vw, 3.125em);
+  font-size: clamp(0.7rem, 0.5rem + 1.25vw, 1rem);
+
+  display: grid;
 }
 
 .nextup-container {
@@ -16,7 +14,6 @@
   align-items: center;
   width: 80%;
   max-width: 200px;
-  // height: 200px;
   margin: 1.5em auto;
   padding: 5%;
   background-color: white;
@@ -37,7 +34,6 @@
 
 .nextup-grid div {
   aspect-ratio: 1; // makes sure cells are square
-  // outline: 1px solid gray;
 }
 
 .info {
