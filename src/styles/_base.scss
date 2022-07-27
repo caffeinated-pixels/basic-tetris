@@ -1,0 +1,27 @@
+html {
+  font-family: 'Press Start 2P', cursive;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+body {
+  background-image: url(../images/background-checks-75pc.png);
+}
+
+.game-container {
+  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding: 1.75em 0.45em 0;
+  // outline: 2px solid green;
+  @media (max-width: 800px) {
+    padding-top: 0.5em;
+  }
+}

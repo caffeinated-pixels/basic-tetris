@@ -1,10 +1,18 @@
 import { gameState } from '../game-state'
 import { GAME_TIMINGS } from '../constants'
-import { scoreDisplay, levelDisplay, linesDisplay, grid } from '../dom/elements'
+import {
+  scoreDisplay,
+  levelDisplay,
+  linesDisplay,
+  gameOverMessage,
+  instructionsDisplay,
+} from '../dom/elements'
 import { displayNextTetromino, drawTetromino, rng, moveDown } from './'
 
 // TODO: refactor into smaller functions
 export const startStopGame = (): void => {
+  instructionsDisplay.style.display = 'none'
+
   if (gameState.isGameOver) {
     // reset values if game over, man!
     gameState.score = 0
@@ -17,13 +25,7 @@ export const startStopGame = (): void => {
     gameState.isGameOver = false
     gameState.isGamePaused = false
 
-    if (grid.firstChild) grid.removeChild(grid.firstChild) // remove game over message
-    gameState.squares.forEach((cell) => grid.appendChild(cell)) // redraws grid
-    grid.style.backgroundColor = '#ffd37b' // resets background color
-    for (let i = 0; i < 180; i++) {
-      // reset grid squares color
-      gameState.squares[i].style.backgroundColor = ''
-    }
+    gameOverMessage.style.display = 'none' // hides game over message
 
     drawTetromino() // restarts game
     gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level])

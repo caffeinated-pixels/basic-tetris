@@ -1,0 +1,70 @@
+.d-pad-container {
+  justify-self: center;
+  display: grid;
+  grid-template-areas:
+    '.    up   .'
+    'left . right'
+    '.   down .';
+}
+
+.d-btn {
+  --btn-size: 60px;
+  width: var(--btn-size);
+  height: var(--btn-size);
+  border: none;
+
+  cursor: pointer;
+  touch-action: manipulation; // prevent double tap zooming
+  box-shadow: 2px 2px 4px black;
+
+  text-decoration: none;
+  padding: 0;
+  font-size: 1.4rem;
+  color: white;
+
+  border-radius: 5%;
+  background-color: #313130;
+
+  @media (max-width: 600px) {
+    --btn-size: 40px;
+    font-size: 1rem;
+  }
+
+  &:hover,
+  &:focus-visible {
+    border: 2px solid orange;
+    outline-style: none;
+  }
+
+  &:active {
+    background-color: gray;
+    transform: scale(0.9);
+  }
+}
+
+.up-btn {
+  grid-area: up;
+}
+
+.left-btn {
+  grid-area: left;
+}
+
+.right-btn {
+  grid-area: right;
+}
+
+.down-btn {
+  grid-area: down;
+}
+
+.btn-row1,
+.btn-row3 {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-row2 {
+  display: flex;
+  justify-content: space-between;
+}
