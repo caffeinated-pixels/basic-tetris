@@ -1,22 +1,29 @@
-# Basic tetris
+# Tetris
 
-This is a simple Tetris app based on the excellent [freeCodeCamp tutorial by Ania Kubrow](https://www.youtube.com/watch?v=rAUn1Lom6dw).
+I built my [Tetris game](https://caffeinated-tetris.netlify.app/) back in the summer of 2020 after following the [freeCodeCamp tutorial by Ania Kubrow](https://www.youtube.com/watch?v=rAUn1Lom6dw).
 
-I learned a lot following this tutorial and then had fun customising and expanding on the functionality of Kubrow's basic tetris game.
+I learned a lot from that tutorial and had fun customising and expanding upon the functionality of Kubrow's very simple Tetris game.
 
-My own additions include:
+Some of the features I added include:
 
 - hi-score display
-- cleared lines display
+- cleared lines count
 - game restart function
-- can now pause game without reset score
-- additional tertrominos
+- pause functionality
+- additional tetrominoes (i.e. all seven shapes)
 - increasing speed levels based on the timings of the classic Nintendo Gameboy Tetris
-- a more complex scoring system also based on the Gameboy version of Tetris
+- a more complex scoring system, also based on the Gameboy version of Tetris
 - some awesome chiptune music (which may get annoying after a while!)
 
-By the way, the music isn't mine, it was composed by the brilliant Jonathon Dunn for the [ZX Spectrum version of 1988 video game RoboCop](https://youtu.be/9_JguaRYkpg).
+More recently (summer 2022), I revised my Tetris game to see how I could improve it. As a learning exercise, I set up it with the [webapp bundler Parcel,](https://parceljs.org/) split the JavaScript into modules and converted it to TypeScript.
 
-I do intend to return my Tetris game in the future as there is an occassional and annoying display issue that I need to debug and fix (where some of the cells don't clear until an active tertromino passes through). I also want to make the UI responsive and get the controls working on mobile displays. But that's all for another day!
+Other changes I made include:
 
-You can [see my tetris game in action](https://caffeinated-tetris.netlify.app/) here
+- refactored to improve readability and performance (still needs more work!!!)
+- reworked the layout to be responsive and work on mobile displays
+- added a d-pad for playing without a keyboard
+- minor bug fixing
+
+There are still some more bug fixing and performance improvements to be done and I’d like to add touch screen controls. I also want to rework the randomiser to change the distribution of tetrominoes to be more in line with the Gameboy version (at the moment they all have an equal chance of being selected). And I want the player to be able to slot the tetrominoes into horizontal gaps.
+
+By the way, the music was composed by the brilliant Jonathon Dunn for the [ZX Spectrum version of the 1988 video game RoboCop](https://youtu.be/9_JguaRYkpg).
