@@ -4,8 +4,10 @@ export const undrawTetromino = (): void => {
   gameState.currentTetromino.forEach((index) => {
     gameState.squares[gameState.currentPosition + index].classList.remove(
       'tetromino'
-    ) // removes .tetromino class
-    gameState.squares[gameState.currentPosition + index].style.backgroundColor =
-      '' // removes the background-color
+    )
+
+    gameState.squares[gameState.currentPosition + index].removeAttribute(
+      'style'
+    )
   })
 }
