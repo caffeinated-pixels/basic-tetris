@@ -9,7 +9,7 @@ import {
 } from '../dom/elements'
 import { displayNextTetromino, drawTetromino, rng, moveDown } from './'
 
-export const startStopGame = (): void => {
+export const startOrStopGame = (): void => {
   instructionsDisplay.style.display = 'none'
 
   if (gameState.isGameOver) {
@@ -17,12 +17,18 @@ export const startStopGame = (): void => {
   } else if (gameState.timerId) {
     pauseGame()
   } else {
-    resumeGame()
+    resumeFromPause()
   }
 }
 
+const startGame = (isNewGame?: boolean) => {
+  drawTetromino()
+  gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level])
+  if (isNewGame) gameState.nextTetrominoIndex = rng()
+  displayNextTetromino()
+}
+
 const resetGame = () => {
-  // reset values if game over, man!
   gameState.score = 0
   scoreDisplay.textContent = `${gameState.score}`
   gameState.level = 0
@@ -33,12 +39,10 @@ const resetGame = () => {
   gameState.isGameOver = false
   gameState.isGamePaused = false
 
-  gameOverMessage.style.display = 'none' // hides game over message
+  gameOverMessage.style.display = 'none'
 
-  drawTetromino() // restarts game
-  gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level])
-  gameState.nextTetrominoIndex = rng()
-  displayNextTetromino()
+  const isNewGame = true
+  startGame(isNewGame)
 }
 
 const pauseGame = () => {
@@ -48,10 +52,9 @@ const pauseGame = () => {
   scoreDisplay.textContent = 'paused'
 }
 
-const resumeGame = () => {
+const resumeFromPause = () => {
   gameState.isGamePaused = false
   scoreDisplay.textContent = `${gameState.score}`
-  drawTetromino()
-  gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level]) // unpauses game
-  displayNextTetromino()
+
+  startGame()
 }
