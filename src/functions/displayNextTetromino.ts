@@ -17,14 +17,13 @@ export const UP_NEXT_TETROMINOS = [
 ]
 
 export const displayNextTetromino = (): void => {
-  // displays next tetromino in the mini-grid
+  // clear previous tetromino
   nextTetrominoDisplay.forEach((square) => {
-    square.classList.remove('tetromino') // clears the mini-grid
-    square.style.backgroundColor = '' // remove color
+    square.classList.remove('tetromino')
+    square.removeAttribute('style')
   })
 
   UP_NEXT_TETROMINOS[gameState.nextTetrominoIndex].forEach((index) => {
-    // draws next tetromino
     nextTetrominoDisplay[DISPLAY_INDEX + index].classList.add('tetromino')
     nextTetrominoDisplay[DISPLAY_INDEX + index].style.backgroundColor =
       COLORS[gameState.nextTetrominoIndex]
