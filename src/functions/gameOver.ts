@@ -9,6 +9,13 @@ const checkForBlockage = (): boolean =>
     )
   )
 
+const clearGameGrid = (): void => {
+  for (let i = 0; i < 180; i++) {
+    gameState.squares[i].classList.remove('taken', 'tetromino')
+    gameState.squares[i].removeAttribute('style')
+  }
+}
+
 const checkForHiscore = (): void => {
   if (gameState.score > gameState.hiscore) updateHiscore()
 }
@@ -25,11 +32,7 @@ export const gameOver = (): void => {
   if (isFirstRowBlocked) {
     gameState.isGameOver = true
 
-    for (let i = 0; i < 180; i++) {
-      // clean up the grid
-      gameState.squares[i].classList.remove('taken', 'tetromino')
-      gameState.squares[i].removeAttribute('style')
-    }
+    clearGameGrid()
     clearNextTetrominoDisplay()
     gameOverMessage.style.display = 'flex' // show game over message
 
