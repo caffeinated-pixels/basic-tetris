@@ -2,17 +2,17 @@ import { gameState } from '../game-state'
 import { hiscoreDisplay, gameOverMessage } from '../dom/elements'
 import { clearNextTetrominoDisplay } from './displayNextTetromino'
 
-// TODO: clear nextTetrominoDisplay when game is over
-/* GAME OVER CONDITION
-checks if any of the squares in the tetromino starting position are taken */
-export const gameOver = (): void => {
-  if (
-    gameState.currentTetromino.some((index) =>
-      gameState.squares[gameState.currentPosition + index].classList.contains(
-        'taken'
-      )
+const checkForBlockage = (): boolean =>
+  gameState.currentTetromino.some((index) =>
+    gameState.squares[gameState.currentPosition + index].classList.contains(
+      'taken'
     )
-  ) {
+  )
+
+export const gameOver = (): void => {
+  const isFirstRowBlocked = checkForBlockage()
+
+  if (isFirstRowBlocked) {
     gameState.isGameOver = true
 
     for (let i = 0; i < 180; i++) {
