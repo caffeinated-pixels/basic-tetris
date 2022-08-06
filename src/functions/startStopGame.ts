@@ -14,17 +14,10 @@ export const startStopGame = (): void => {
 
   if (gameState.isGameOver) {
     resetGame()
+  } else if (gameState.timerId) {
+    pauseGame()
   } else {
-    // if !isGameOver, ie game is active or before starting 1st game
-    if (gameState.timerId) {
-      pauseGame()
-    } else {
-      gameState.isGamePaused = false
-      scoreDisplay.textContent = `${gameState.score}`
-      drawTetromino()
-      gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level]) // unpauses game
-      displayNextTetromino()
-    }
+    resumeGame()
   }
 }
 
@@ -53,4 +46,12 @@ const pauseGame = () => {
   gameState.timerId = undefined
   gameState.isGamePaused = true
   scoreDisplay.textContent = 'paused'
+}
+
+const resumeGame = () => {
+  gameState.isGamePaused = false
+  scoreDisplay.textContent = `${gameState.score}`
+  drawTetromino()
+  gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level]) // unpauses game
+  displayNextTetromino()
 }
