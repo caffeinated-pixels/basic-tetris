@@ -1,5 +1,6 @@
 import { gameState } from '../game-state'
-import { grid, hiscoreDisplay, gameOverMessage } from '../dom/elements'
+import { hiscoreDisplay, gameOverMessage } from '../dom/elements'
+import { clearNextTetrominoDisplay } from './displayNextTetromino'
 
 // TODO: clear nextTetrominoDisplay when game is over
 /* GAME OVER CONDITION
@@ -19,7 +20,7 @@ export const gameOver = (): void => {
       gameState.squares[i].classList.remove('taken', 'tetromino')
       gameState.squares[i].removeAttribute('style')
     }
-
+    clearNextTetrominoDisplay()
     gameOverMessage.style.display = 'flex' // show game over message
 
     if (gameState.score > gameState.hiscore) {
