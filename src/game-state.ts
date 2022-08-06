@@ -1,6 +1,16 @@
 import { rng } from './functions/'
 import type { GameState } from './types'
 import { TETROMINOS } from './constants'
+import { hiscoreDisplay } from './dom/elements'
+
+const getHiscoreFromLocalStorage = () => {
+  const hiscore = localStorage.tetrisHiscore
+    ? parseInt(localStorage.tetrisHiscore)
+    : 0
+
+  hiscoreDisplay.textContent = `${hiscore}`
+  return hiscore
+}
 
 const initializeState = (): GameState => {
   const tetrominoIndex = rng()
@@ -11,7 +21,7 @@ const initializeState = (): GameState => {
     timerId: undefined, // for stopping the timer
     squaresRemoved: null, // for storing cleared lines/rows
     squares: Array.from(document.querySelectorAll('.game-grid div')),
-    hiscore: 0, // for hiscore html display
+    hiscore: getHiscoreFromLocalStorage(), // for hiscore html display
     score: 0, // for score html display
     level: 0, // for level html display
     lines: 0, // for lines html display
