@@ -6,7 +6,7 @@ const DISPLAY_INDEX = 0 // reference position on grid; top-left corner
 const UP_NEXT_WIDTH = 4 // each row is only 4 wide
 
 // Tetrominos without rotations; adjusted for 4x4 grid
-export const UP_NEXT_TETROMINOS = [
+const UP_NEXT_TETROMINOS = [
   [1, UP_NEXT_WIDTH + 1, UP_NEXT_WIDTH * 2 + 1, UP_NEXT_WIDTH * 2], // jTetromino
   [1, UP_NEXT_WIDTH + 1, UP_NEXT_WIDTH * 2 + 1, UP_NEXT_WIDTH * 2 + 2], // lTetromino
   [0, UP_NEXT_WIDTH, UP_NEXT_WIDTH + 1, UP_NEXT_WIDTH * 2 + 1], // zTetromino
@@ -16,12 +16,15 @@ export const UP_NEXT_TETROMINOS = [
   [1, UP_NEXT_WIDTH + 1, UP_NEXT_WIDTH * 2 + 1, UP_NEXT_WIDTH * 3 + 1], // iTetromino
 ]
 
-export const displayNextTetromino = (): void => {
-  // clear previous tetromino
+export const clearNextTetrominoDisplay = () => {
   nextTetrominoDisplay.forEach((square) => {
     square.classList.remove('tetromino')
     square.removeAttribute('style')
   })
+}
+
+export const displayNextTetromino = (): void => {
+  clearNextTetrominoDisplay()
 
   UP_NEXT_TETROMINOS[gameState.nextTetrominoIndex].forEach((index) => {
     nextTetrominoDisplay[DISPLAY_INDEX + index].classList.add('tetromino')
