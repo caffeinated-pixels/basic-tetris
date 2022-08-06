@@ -9,6 +9,16 @@ const checkForBlockage = (): boolean =>
     )
   )
 
+const checkForHiscore = (): void => {
+  if (gameState.score > gameState.hiscore) updateHiscore()
+}
+
+const updateHiscore = (): void => {
+  gameState.hiscore = gameState.score
+  localStorage.setItem('tetrisHiscore', `${gameState.hiscore}`)
+  hiscoreDisplay.textContent = `${gameState.hiscore}`
+}
+
 export const gameOver = (): void => {
   const isFirstRowBlocked = checkForBlockage()
 
@@ -23,12 +33,7 @@ export const gameOver = (): void => {
     clearNextTetrominoDisplay()
     gameOverMessage.style.display = 'flex' // show game over message
 
-    if (gameState.score > gameState.hiscore) {
-      // updates hi score
-      gameState.hiscore = gameState.score * 1
-    }
-
-    hiscoreDisplay.textContent = `${gameState.hiscore}` // changes score display
+    checkForHiscore()
     clearInterval(gameState.timerId) // clears timer interval for moveDown
   }
 }
