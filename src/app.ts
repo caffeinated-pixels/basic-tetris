@@ -3,7 +3,7 @@ import { startBtn, infoBtn, musicBtn, dPad } from './dom/elements'
 import {
   arrowKeyControls,
   preventScrolling,
-  startStopGame,
+  startOrStopGame,
   displayInstructions,
   playMusic,
   dpadControls,
@@ -11,7 +11,7 @@ import {
 
 document.addEventListener('keydown', arrowKeyControls)
 window.addEventListener('keydown', preventScrolling)
-startBtn.addEventListener('click', startStopGame)
+startBtn.addEventListener('click', startOrStopGame)
 infoBtn.addEventListener('click', displayInstructions)
 musicBtn.addEventListener('click', playMusic)
 dPad.addEventListener('click', dpadControls)
