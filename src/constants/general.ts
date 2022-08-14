@@ -1,4 +1,5 @@
 export const WIDTH = 10 // for plotting out shapes on the grid (1 row = 10 cells)
+export const UP_NEXT_WIDTH = 4
 
 // Timings (ms) based on Gameboy version
 export const GAME_TIMINGS = [

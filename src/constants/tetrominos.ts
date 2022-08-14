@@ -1,63 +1,77 @@
-import { WIDTH } from './general'
+import { WIDTH, UP_NEXT_WIDTH } from './general'
 
 /* THE TETROMINOS; each subarray is one of its 4 rotations
-the values represent grid positions on the 10x18 grid; WIDTH = 10
-so [1, WIDTH + 1, WIDTH * 2 + 1, 2] = grid positions 1, 11, 21, 2 */
-export const J_TETROMINO = [
-  [1, WIDTH + 1, WIDTH * 2 + 1, 2],
-  [WIDTH, WIDTH + 1, WIDTH + 2, WIDTH * 2 + 2],
-  [1, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 2],
-  [WIDTH, WIDTH * 2, WIDTH * 2 + 1, WIDTH * 2 + 2],
+the values represent grid positions on the 10x18 grid; width = 10
+so [1, width + 1, width * 2 + 1, 2] = grid positions 1, 11, 21, 2 */
+
+type tetrominoContructor = (width: number) => number[][]
+
+const J_TETROMINO: tetrominoContructor = (width) => [
+  [1, width + 1, width * 2 + 1, 2],
+  [width, width + 1, width + 2, width * 2 + 2],
+  [1, width + 1, width * 2 + 1, width * 2],
+  [width, width * 2, width * 2 + 1, width * 2 + 2],
 ]
 
-export const L_TETROMINO = [
-  [0, 1, WIDTH + 1, WIDTH * 2 + 1],
-  [WIDTH, WIDTH + 1, WIDTH + 2, WIDTH * 2],
-  [1, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 2 + 2],
-  [WIDTH + 2, WIDTH * 2, WIDTH * 2 + 1, WIDTH * 2 + 2],
+const L_TETROMINO: tetrominoContructor = (width) => [
+  [0, 1, width + 1, width * 2 + 1],
+  [width, width + 1, width + 2, width * 2],
+  [1, width + 1, width * 2 + 1, width * 2 + 2],
+  [width + 2, width * 2, width * 2 + 1, width * 2 + 2],
 ]
 
-export const Z_TETROMINO = [
-  [0, WIDTH, WIDTH + 1, WIDTH * 2 + 1],
-  [WIDTH + 1, WIDTH + 2, WIDTH * 2, WIDTH * 2 + 1],
-  [0, WIDTH, WIDTH + 1, WIDTH * 2 + 1],
-  [WIDTH + 1, WIDTH + 2, WIDTH * 2, WIDTH * 2 + 1],
+const Z_TETROMINO: tetrominoContructor = (width) => [
+  [0, width, width + 1, width * 2 + 1],
+  [width + 1, width + 2, width * 2, width * 2 + 1],
+  [0, width, width + 1, width * 2 + 1],
+  [width + 1, width + 2, width * 2, width * 2 + 1],
 ]
 
-export const S_TETROMINO = [
-  [2, WIDTH + 1, WIDTH + 2, WIDTH * 2 + 1],
-  [WIDTH, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 2 + 2],
-  [2, WIDTH + 1, WIDTH + 2, WIDTH * 2 + 1],
-  [WIDTH, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 2 + 2],
+const S_TETROMINO: tetrominoContructor = (width) => [
+  [2, width + 1, width + 2, width * 2 + 1],
+  [width, width + 1, width * 2 + 1, width * 2 + 2],
+  [2, width + 1, width + 2, width * 2 + 1],
+  [width, width + 1, width * 2 + 1, width * 2 + 2],
 ]
 
-export const T_TETROMINO = [
-  [1, WIDTH, WIDTH + 1, WIDTH + 2],
-  [1, WIDTH + 1, WIDTH + 2, WIDTH * 2 + 1],
-  [WIDTH, WIDTH + 1, WIDTH + 2, WIDTH * 2 + 1],
-  [1, WIDTH, WIDTH + 1, WIDTH * 2 + 1],
+const T_TETROMINO: tetrominoContructor = (width) => [
+  [1, width, width + 1, width + 2],
+  [1, width + 1, width + 2, width * 2 + 1],
+  [width, width + 1, width + 2, width * 2 + 1],
+  [1, width, width + 1, width * 2 + 1],
 ]
 
-export const O_TETROMINO = [
-  [0, 1, WIDTH, WIDTH + 1],
-  [0, 1, WIDTH, WIDTH + 1],
-  [0, 1, WIDTH, WIDTH + 1],
-  [0, 1, WIDTH, WIDTH + 1],
+const O_TETROMINO: tetrominoContructor = (width) => [
+  [0, 1, width, width + 1],
+  [0, 1, width, width + 1],
+  [0, 1, width, width + 1],
+  [0, 1, width, width + 1],
 ]
 
-export const I_TETROMINO = [
-  [1, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 3 + 1],
-  [WIDTH, WIDTH + 1, WIDTH + 2, WIDTH + 3],
-  [1, WIDTH + 1, WIDTH * 2 + 1, WIDTH * 3 + 1],
-  [WIDTH, WIDTH + 1, WIDTH + 2, WIDTH + 3],
+const I_TETROMINO: tetrominoContructor = (width) => [
+  [1, width + 1, width * 2 + 1, width * 3 + 1],
+  [width, width + 1, width + 2, width + 3],
+  [1, width + 1, width * 2 + 1, width * 3 + 1],
+  [width, width + 1, width + 2, width + 3],
 ]
 
 export const TETROMINOS = [
-  J_TETROMINO,
-  L_TETROMINO,
-  Z_TETROMINO,
-  S_TETROMINO,
-  T_TETROMINO,
-  O_TETROMINO,
-  I_TETROMINO,
+  J_TETROMINO(WIDTH),
+  L_TETROMINO(WIDTH),
+  Z_TETROMINO(WIDTH),
+  S_TETROMINO(WIDTH),
+  T_TETROMINO(WIDTH),
+  O_TETROMINO(WIDTH),
+  I_TETROMINO(WIDTH),
 ] // creates a nested array of all the tetrominos/rotations
+
+// Tetrominos without rotations; adjusted for 4x4 grid
+export const UP_NEXT_TETROMINOS = [
+  J_TETROMINO(UP_NEXT_WIDTH)[0],
+  L_TETROMINO(UP_NEXT_WIDTH)[0],
+  Z_TETROMINO(UP_NEXT_WIDTH)[0],
+  S_TETROMINO(UP_NEXT_WIDTH)[0],
+  T_TETROMINO(UP_NEXT_WIDTH)[0],
+  O_TETROMINO(UP_NEXT_WIDTH)[0],
+  I_TETROMINO(UP_NEXT_WIDTH)[0],
+]
