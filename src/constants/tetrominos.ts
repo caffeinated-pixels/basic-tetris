@@ -56,22 +56,22 @@ const I_TETROMINO: tetrominoContructor = (width) => [
 ]
 
 export const TETROMINOS = [
-  J_TETROMINO(WIDTH),
   L_TETROMINO(WIDTH),
+  J_TETROMINO(WIDTH),
+  I_TETROMINO(WIDTH),
   Z_TETROMINO(WIDTH),
+  O_TETROMINO(WIDTH),
   S_TETROMINO(WIDTH),
   T_TETROMINO(WIDTH),
-  O_TETROMINO(WIDTH),
-  I_TETROMINO(WIDTH),
 ] // creates a nested array of all the tetrominos/rotations
 
 // Tetrominos without rotations; adjusted for 4x4 grid
 export const UP_NEXT_TETROMINOS = [
-  J_TETROMINO(UP_NEXT_WIDTH)[0],
   L_TETROMINO(UP_NEXT_WIDTH)[0],
+  J_TETROMINO(UP_NEXT_WIDTH)[0],
+  I_TETROMINO(UP_NEXT_WIDTH)[0],
   Z_TETROMINO(UP_NEXT_WIDTH)[0],
+  O_TETROMINO(UP_NEXT_WIDTH)[0],
   S_TETROMINO(UP_NEXT_WIDTH)[0],
   T_TETROMINO(UP_NEXT_WIDTH)[0],
-  O_TETROMINO(UP_NEXT_WIDTH)[0],
-  I_TETROMINO(UP_NEXT_WIDTH)[0],
 ]
