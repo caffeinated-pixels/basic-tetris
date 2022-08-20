@@ -7,6 +7,7 @@ import {
   gameOverMessage,
   instructionsDisplay,
 } from '../dom/elements'
+import { startGameTimer, stopGameTimer } from './'
 import { displayNextTetromino, drawTetromino, rng, moveDown } from './'
 
 export const startOrStopGame = (): void => {
@@ -23,7 +24,7 @@ export const startOrStopGame = (): void => {
 
 const startGame = (isNewGame?: boolean) => {
   drawTetromino()
-  gameState.timerId = setInterval(moveDown, GAME_TIMINGS[gameState.level])
+  startGameTimer()
   if (isNewGame) gameState.nextTetrominoIndex = rng()
   displayNextTetromino()
 }
@@ -46,7 +47,7 @@ const resetGame = () => {
 }
 
 const pauseGame = () => {
-  clearInterval(gameState.timerId)
+  stopGameTimer()
   gameState.timerId = undefined
   gameState.isGamePaused = true
   scoreDisplay.textContent = 'paused'

@@ -1,6 +1,7 @@
 import { gameState } from '../game-state'
 import { hiscoreDisplay, gameOverMessage } from '../dom/elements'
 import { clearNextTetrominoDisplay } from './displayNextTetromino'
+import { stopGameTimer } from './gameTimer'
 
 const checkForBlockage = (): boolean =>
   gameState.currentTetromino.some((index) =>
@@ -37,6 +38,6 @@ export const gameOver = (): void => {
     gameOverMessage.style.display = 'flex' // show game over message
 
     checkForHiscore()
-    clearInterval(gameState.timerId) // clears timer interval for moveDown
+    stopGameTimer()
   }
 }
