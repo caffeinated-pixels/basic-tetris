@@ -1,5 +1,5 @@
 import { gameState } from '../game-state'
-import { GAME_TIMINGS } from '../constants'
+
 import {
   scoreDisplay,
   levelDisplay,
@@ -8,7 +8,7 @@ import {
   instructionsDisplay,
 } from '../dom/elements'
 import { startGameTimer, stopGameTimer } from './'
-import { displayNextTetromino, drawTetromino, rng, moveDown } from './'
+import { displayNextTetromino, drawTetromino, rng } from './'
 
 export const startOrStopGame = (): void => {
   instructionsDisplay.style.display = 'none'
