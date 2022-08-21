@@ -1,4 +1,5 @@
 export * from './setFirstTetromino'
+export * from './gameTimer'
 
 export * from './isAtLeftEdge'
 export * from './isAtRightEdge'

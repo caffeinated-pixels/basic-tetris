@@ -2,6 +2,8 @@
   "compilerOptions": {
     "lib": ["ESNEXT", "dom"],
     "importsNotUsedAsValues": "error",
+    "noUnusedLocals": true /* Report errors on unused locals. */,
+    "noUnusedParameters": true,
     "isolatedModules": true,
     "noEmit": true,
     "noImplicitAny": true,
