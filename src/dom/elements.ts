@@ -1,17 +1,43 @@
-export const grid: HTMLElement = document.querySelector('.game-grid')! // selects specified element
-export const hiscoreDisplay: HTMLElement = document.querySelector('#hiscore')! // targets html ids
-export const scoreDisplay: HTMLElement = document.querySelector('#score')!
-export const linesDisplay: HTMLElement = document.querySelector('#lines')!
-export const levelDisplay: HTMLElement = document.querySelector('#level')!
-export const startBtn: HTMLElement = document.querySelector('#start-button')!
-export const infoBtn: HTMLElement = document.querySelector('#info-button')!
-export const musicBtn: HTMLElement = document.querySelector('#music-button')!
-export const dPad: HTMLElement = document.querySelector('#d-pad')!
+export const grid = document.querySelector('.game-grid') as HTMLDivElement
 
-export const gameOverMessage: HTMLElement =
-  document.querySelector('#game-over')!
-export const instructionsDisplay: HTMLElement =
-  document.querySelector('#instructions')!
-export const nextTetrominoDisplay: NodeListOf<HTMLElement> =
-  document.querySelectorAll('.nextup-grid div')!
-// creates an array of the 16 divs in the mini-grid
+export const hiscoreDisplay = document.querySelector(
+  '#hiscore'
+) as HTMLParagraphElement
+
+export const scoreDisplay = document.querySelector(
+  '#score'
+) as HTMLParagraphElement
+
+export const linesDisplay = document.querySelector(
+  '#lines'
+) as HTMLParagraphElement
+
+export const levelDisplay = document.querySelector(
+  '#level'
+) as HTMLParagraphElement
+
+export const startBtn = document.querySelector(
+  '#start-button'
+) as HTMLButtonElement
+
+export const infoBtn = document.querySelector(
+  '#info-button'
+) as HTMLButtonElement
+
+export const musicBtn = document.querySelector(
+  '#music-button'
+) as HTMLButtonElement
+
+export const dPad = document.querySelector('#d-pad') as HTMLButtonElement
+
+export const gameOverMessage = document.querySelector(
+  '#game-over'
+) as HTMLDivElement
+
+export const instructionsDisplay = document.querySelector(
+  '#instructions'
+) as HTMLDivElement
+
+export const nextTetrominoDisplay = document.querySelectorAll(
+  '.nextup-grid div'
+) as NodeListOf<HTMLDivElement>
