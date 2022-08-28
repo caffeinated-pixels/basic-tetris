@@ -1,7 +1,8 @@
 import { gameState } from '../game-state'
-import { hiscoreDisplay, gameOverMessage } from '../dom/elements'
+import { hiscoreDisplay, gameOverMessage, startBtnIcon } from '../dom/elements'
 import { clearNextTetrominoDisplay } from './displayNextTetromino'
 import { stopGameTimer } from './gameTimer'
+import { START_BTN_ICONS } from '../constants'
 
 const checkForBlockage = (): boolean =>
   gameState.currentTetromino.some((index) =>
@@ -32,7 +33,7 @@ export const gameOver = (): void => {
 
   if (isFirstRowBlocked) {
     gameState.isGameOver = true
-
+    startBtnIcon.textContent = START_BTN_ICONS[0]
     clearGameGrid()
     clearNextTetrominoDisplay()
     gameOverMessage.style.display = 'flex' // show game over message
