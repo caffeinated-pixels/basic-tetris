@@ -18,3 +18,5 @@ export const COLORS = [
   '#ffff00',
   '#ff7b31',
 ]
+
+export const START_BTN_ICONS = ['play_arrow', 'pause']

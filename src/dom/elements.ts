@@ -20,6 +20,8 @@ export const startBtn = document.querySelector(
   '#start-button'
 ) as HTMLButtonElement
 
+export const startBtnIcon = startBtn.firstElementChild as HTMLSpanElement
+
 export const infoBtn = document.querySelector(
   '#info-button'
 ) as HTMLButtonElement

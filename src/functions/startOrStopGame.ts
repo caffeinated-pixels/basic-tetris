@@ -1,4 +1,6 @@
 import { gameState } from '../game-state'
+import { startBtnIcon } from '../dom/elements'
+import { START_BTN_ICONS } from '../constants'
 
 import {
   scoreDisplay,
@@ -43,6 +45,7 @@ const resetGame = () => {
   gameOverMessage.style.display = 'none'
 
   const isNewGame = true
+  startBtnIcon.textContent = START_BTN_ICONS[1]
   startGame(isNewGame)
 }
 
@@ -51,6 +54,7 @@ const pauseGame = () => {
   gameState.timerId = undefined
   gameState.isGamePaused = true
   scoreDisplay.textContent = 'paused'
+  startBtnIcon.textContent = START_BTN_ICONS[0]
 }
 
 const resumeFromPause = () => {
@@ -58,4 +62,5 @@ const resumeFromPause = () => {
   scoreDisplay.textContent = `${gameState.score}`
 
   startGame()
+  startBtnIcon.textContent = START_BTN_ICONS[1]
 }
