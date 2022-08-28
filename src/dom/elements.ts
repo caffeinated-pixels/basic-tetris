@@ -28,6 +28,8 @@ export const musicBtn = document.querySelector(
   '#music-button'
 ) as HTMLButtonElement
 
+export const musicBtnIcon = musicBtn.firstElementChild as HTMLSpanElement
+
 export const dPad = document.querySelector('#d-pad') as HTMLButtonElement
 
 export const gameOverMessage = document.querySelector(
